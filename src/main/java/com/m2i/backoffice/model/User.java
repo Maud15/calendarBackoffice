@@ -27,7 +27,7 @@ public class User {
     private boolean isAdmin;
 
     @OneToMany(targetEntity = UserCalendarRights.class, mappedBy = "user")
-    private List<UserCalendarRights> userCalendarRightsList;
+    private List<UserCalendarRights> calendarRightsList;
 
     @ManyToOne
     @JoinColumn(name="idCity")
@@ -92,11 +92,11 @@ public class User {
         isAdmin = admin;
     }
 
-    public List<UserCalendarRights> getUserCalendarRightsList() {
-        return userCalendarRightsList;
+    public List<UserCalendarRights> getCalendarRightsList() {
+        return calendarRightsList;
     }
-    public void setUserCalendarRightsList(List<UserCalendarRights> userCalendarRightsList) {
-        this.userCalendarRightsList = userCalendarRightsList;
+    public void setUserCalendarRightsList(List<UserCalendarRights> calendarRightsList) {
+        this.calendarRightsList = calendarRightsList;
     }
 
     public City getCity() {
