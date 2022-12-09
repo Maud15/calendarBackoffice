@@ -3,13 +3,14 @@ package com.m2i.backoffice.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_event")
+    @Column(name = "idEvent")
     private Long id;
 
     @Column(nullable = false)
@@ -21,6 +22,8 @@ public class Event {
     @Column(nullable = false)
     private LocalDate endDate;
 
+    @ManyToMany
+    private List<Calendar> calendarsList;
 
 
     public Long getId() {
@@ -49,5 +52,12 @@ public class Event {
     }
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public List<Calendar> getCalendarsList() {
+        return calendarsList;
+    }
+    public void setCalendarsList(List<Calendar> calendarsList) {
+        this.calendarsList = calendarsList;
     }
 }

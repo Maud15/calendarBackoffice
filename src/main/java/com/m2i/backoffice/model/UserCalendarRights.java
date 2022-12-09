@@ -16,7 +16,7 @@ public class UserCalendarRights {
     private Calendar calendar;
 
     @Column(nullable = false)
-    private boolean rights;
+    private String rights;
 
 
 
@@ -34,10 +34,10 @@ public class UserCalendarRights {
         this.calendar = calendar;
     }
 
-    public boolean isRights() {
+    public String getRights() {
         return rights;
     }
-    public void setRights(boolean rights) {
+    public void setRights(String rights) {
         this.rights = rights;
     }
 }

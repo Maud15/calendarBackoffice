@@ -1,7 +1,6 @@
 package com.m2i.backoffice.model;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
@@ -20,6 +19,8 @@ public class Calendar {
     @OneToMany(targetEntity = UserCalendarRights.class, mappedBy = "calendar")
     private List<UserCalendarRights> calendarUserRightsList;
 
+    @ManyToMany
+    private List<Event> eventsList;
 
 
     public Long getId() {
@@ -48,5 +49,12 @@ public class Calendar {
     }
     public void setCalendarUserRightsList(List<UserCalendarRights> calendarUserRightsList) {
         this.calendarUserRightsList = calendarUserRightsList;
+    }
+
+    public List<Event> getEventsList() {
+        return eventsList;
+    }
+    public void setEventsList(List<Event> eventsList) {
+        this.eventsList = eventsList;
     }
 }

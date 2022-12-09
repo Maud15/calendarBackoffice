@@ -10,7 +10,6 @@ import java.util.Optional;
 
 public class UserDao implements Dao<User>{
 
-
     @Override
     public Optional<User> get(Long id) {
         Optional<User> optUser = Optional.empty();
