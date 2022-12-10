@@ -1,6 +1,6 @@
 Formation M2i - JAVA FULLSTACK DEVELOPER - Projet Fil Rouge 
 
-Collaborateurs : Kesavan, Maud
+Collaborateurs : Kesavan (kesavanvillebon36), Maud (Maud15)
 
 
 Application calendrier avec météo
