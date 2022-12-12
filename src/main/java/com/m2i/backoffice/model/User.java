@@ -23,25 +23,48 @@ public class User {
     private String firstname;
     private String lastname;
 
-    @Column(nullable = false)
-    private boolean isAdmin;
+    @Column(name="isAdmin", nullable = false)
+    private boolean admin;
 
-    @OneToMany(targetEntity = UserCalendarRights.class, mappedBy = "user")
-    private List<UserCalendarRights> calendarRightsList;
+    @Column(name="isSuperAdmin", nullable = false)
+    private boolean superAdmin;
 
     @ManyToOne
     @JoinColumn(name="idCity")
     private City city;
 
+    @OneToMany(targetEntity = UserCalendarRights.class, mappedBy = "user")
+    private List<UserCalendarRights> calendarRightsList;
+
+
     public User() {
     }
 
-    public User(String email, String pseudo, String password, boolean isAdmin) {
+    public User(String email, String pseudo, String password, boolean admin) {
+        this(email,pseudo,password,admin,false);
+    }
+
+    public User(String email, String pseudo, String password, boolean admin, boolean superAdmin) {
+        this(email,pseudo,password,admin,superAdmin,null,null,null);
+    }
+
+    public User(String email, String pseudo, String password, boolean admin, boolean superAdmin, String firstname, String lastname, City city) {
+        this(null,email,pseudo,password,admin,superAdmin,null,null,null,null);
+    }
+
+    public User(Long id, String email, String pseudo, String password, boolean admin, boolean superAdmin, String firstname, String lastname, City city, List<UserCalendarRights> calendarRightsList) {
+        this.id = id;
         this.email = email;
         this.pseudo = pseudo;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.admin = admin;
+        this.superAdmin = superAdmin;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.city = city;
+        this.calendarRightsList = calendarRightsList;
     }
+
 
     public Long getId() {
         return id;
@@ -86,16 +109,23 @@ public class User {
     }
 
     public boolean isAdmin() {
-        return isAdmin;
+        return this.admin;
     }
     public void setAdmin(boolean admin) {
-        isAdmin = admin;
+        this.admin = admin;
+    }
+
+    public boolean isSuperAdmin() {
+        return superAdmin;
+    }
+    public void setSuperAdmin(boolean superAdmin) {
+        this.superAdmin = superAdmin;
     }
 
     public List<UserCalendarRights> getCalendarRightsList() {
         return calendarRightsList;
     }
-    public void setUserCalendarRightsList(List<UserCalendarRights> calendarRightsList) {
+    public void setCalendarRightsList(List<UserCalendarRights> calendarRightsList) {
         this.calendarRightsList = calendarRightsList;
     }
 
