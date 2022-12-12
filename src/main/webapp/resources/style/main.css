@@ -1,0 +1,153 @@
+:root {
+    --main-hue:167deg;
+    --main-color-darkest: hsl(var(--main-hue) 35% 35%);
+    --main-color-darker: hsl(var(--main-hue) 61% 34%);
+    --main-color: hsl(var(--main-hue) 65% 45%);
+    --main-color-light: hsl(var(--main-hue) 57% 67%);
+    --main-color-lightest: hsl(var(--main-hue) 50% 92%);
+
+    --alert-color: red;
+    --alert-color-faded: #ffe5e5;
+
+    --side-margin: 8vw;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 1rem;
+    height: 100%;
+    background: var(--main-color-lightest);
+}
+
+main {
+    margin: 2vh 6vw;
+    background: white;
+    border: 1px solid var(--main-color-darker);
+}
+
+button {
+    position: relative;
+    padding: 4px 12px;
+    background: white;
+    color: var(--main-color-darker);
+    border: 1px solid var(--main-color-darker);
+    border-radius: 2px;
+    cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    letter-spacing: 0.2px;
+    box-shadow: 1px 1px 6px -2px var(--main-color-darkest);
+}
+button:hover {
+    box-shadow: none;
+    /*color: white;*/
+    background: var(--main-color-lightest);
+    /*border: 1px solid transparent;*/
+}
+
+.content-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.content-header>* {
+    margin: 2vh 1vw;
+}
+
+.main-content {
+    margin: 1vh 1vw;
+}
+
+
+/* ---- HEADER ---- */
+
+header {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--main-color-darker);
+    color: white;
+    box-shadow: 1px 1px 6px -2px var(--main-color-darker);
+}
+
+h1 {
+    position: relative;
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    margin: 1vh var(--side-margin);
+    padding-right: 14px;
+    background: var(--main-color-darkest);
+    border-radius: 20px;
+    font-family: monospace;
+    font-variant-caps: petite-caps;
+    letter-spacing: 4px;
+}
+
+h1.admin:after {
+    content: ' Admin';
+    position: absolute;
+    top: 0.4em;
+    right: -4em;
+    color: var(--main-color-lightest);
+    border-bottom: 2px solid var(--main-color-lightest);
+    font-size: 0.75em;
+}
+h1:first-letter {
+    font-size: 1.3em;
+    border-radius: 20px 0 0 20px;
+    background: var(--main-color);
+    margin-right: 8px;
+    padding: 0 4px 0 14px;
+    vertical-align: sub;
+}
+
+h2 {
+    color: var(--main-color-darker);
+}
+
+
+/* ---- ERRORS ---- */
+
+.error-message p:before {
+    content:"ERREUR : ";
+}
+
+.error-message {
+    background: var(--alert-color-faded);
+    color: red;
+    border: 1px solid var(--alert-color);
+    margin: 12px var(--side-margin);
+    padding: 0 4vw;
+}
+
+form {
+    margin: 2vh 60px;
+}
+label {
+    margin: 0 20px;
+}
+form div {
+    margin: 2vh 0;
+}
+input[disabled] {
+    border: none;
+    color: var(--main-color-darker);
+    background: none;
+    font-size: 1rem;
+}
+
+
+
+/* ---- specific ---- */
+.userPseudoTag {
+    text-decoration: hsl(calc(var(--main-hue) + 180deg) 50% 35%);
+    color: hsl(calc(var(--main-hue) + 180deg) 50% 35%);
+    /*color: white;
+    background: var(--main-color);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;*/
+/* box-shadow: 0px 0px 12px 0px var(--main-color-darker);*/
+}
