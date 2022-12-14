@@ -1,7 +1,6 @@
 package com.m2i.backoffice.dao;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.EntityTransaction;
 
 import java.util.List;
@@ -16,7 +15,7 @@ public interface Dao<T> {
         EntityManager em = ConnectionManager.getEntityManager();
         try {
             optionalT = Optional.of(em.find(tClass, id));
-        } catch(EntityNotFoundException e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
         return optionalT;
