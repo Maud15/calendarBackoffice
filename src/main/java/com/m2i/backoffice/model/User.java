@@ -49,7 +49,7 @@ public class User {
     }
 
     public User(String email, String pseudo, String password, boolean admin, boolean superAdmin, String firstname, String lastname, City city) {
-        this(null,email,pseudo,password,admin,superAdmin,null,null,null,null);
+        this(null,email,pseudo,password,admin,superAdmin,firstname,lastname,city,null);
     }
 
     public User(Long id, String email, String pseudo, String password, boolean admin, boolean superAdmin, String firstname, String lastname, City city, List<UserCalendarRights> calendarRightsList) {
