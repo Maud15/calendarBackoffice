@@ -28,6 +28,7 @@ public class AddUserServlet extends HttpServlet {
         boolean isAdmin = Boolean.getBoolean(req.getParameter("isAdmin"));
 
         User newUser = new User(userEmail,userPseudo,userPassword,isAdmin);
+        System.out.println(userEmail + " " + userPseudo + " " + userPassword + "  " + isAdmin);
         new UserDao().create(newUser);
 
 //        resp.sendRedirect(req.getContextPath() + ListUserServlet.URL);
