@@ -45,6 +45,20 @@ button:hover {
     box-shadow: none;
     background: var(--main-color-lightest);
 }
+button.validate {
+    color: green;
+    border-color: forestgreen;
+}
+button.validate:hover {
+    background: #edfaed;
+}
+button.cancel {
+    color: dimgray;
+    border-color: gray;
+}
+button.cancel:hover {
+    background: #f2f2f2;
+}
 
 .content-header {
     display: flex;
@@ -138,6 +152,10 @@ form {
     color: hsl(calc(var(--main-hue) + 180deg) 50% 35%);
     background: none;
     font-size: 1rem;
+}
+
+.aria-disabled .form-buttons {
+    display: none;
 }
 
 .form-fields {

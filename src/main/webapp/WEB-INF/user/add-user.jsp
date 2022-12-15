@@ -1,5 +1,4 @@
-<%--Created by : User: maud_  --  Date: 08/12/2022  --  Time: 11:41--%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html lang="fr">
 <head>
@@ -83,7 +82,8 @@
                             <label for="isSuperAdmin">Super administrateur</label>
                         </div>
                         <div class="form-value">
-                            <input id="isSuperAdmin" type="checkbox" name="superAdmin">
+                            <input id="isSuperAdmin" type="checkbox" name="superAdmin"
+                                   <c:if test="${sessionScope.user.superAdmin != true}">disabled</c:if>>
                         </div>
                     </div>
                 </div>
@@ -93,20 +93,6 @@
             </form>
         </div>
 
-        <%--todo : remove, tmp button while waiting for userList jsp--%>
-        <div class="content-header">
-            <h2>Afficher un profil</h2>
-        </div>
-
-        <div class="main-content">
-            <form method="get" action="${pageContext.request.contextPath}/user/details">
-                <div>
-                    <label for="userId">User Id</label>
-                    <input id="userId" name="userId" type = number>
-                    <button>Show</button>
-                </div>
-            </form>
-        </div>
     </main>
 
 </body>
