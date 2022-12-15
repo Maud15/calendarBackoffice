@@ -7,7 +7,10 @@
     <title>Ajouter un utilisateur</title>
 </head>
 <body>
-    <jsp:include page="../header.jsp"><jsp:param name="errorMsg" value="${requestScope.error}"/></jsp:include>
+    <jsp:include page="../header.jsp">
+        <jsp:param name="errorMsg" value="${requestScope.error}"/>
+        <jsp:param name="currentPage" value="addUser"/>
+    </jsp:include>
 
 <%-- Todo Maud : voir comment utiliser plutot une grid ici pour avoir un bel affichage --%>
     <main>

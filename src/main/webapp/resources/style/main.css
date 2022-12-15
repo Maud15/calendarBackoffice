@@ -1,10 +1,10 @@
 :root {
-    --main-hue:120deg;
-    --main-color-darkest: hsl(var(--main-hue) 35% 35%);
-    --main-color-darker: hsl(var(--main-hue) 61% 34%);
-    --main-color: hsl(var(--main-hue) 65% 45%);
-    --main-color-light: hsl(var(--main-hue) 57% 67%);
-    --main-color-lightest: hsl(var(--main-hue) 50% 92%);
+    --main-hue:30deg;
+    --main-color-darkest: hsl(var(--main-hue) 80% 25%);
+    --main-color-darker: hsl(var(--main-hue) 90% 40%);
+    --main-color: hsl(var(--main-hue) 90% 50%);
+    --main-color-lighter: hsl(var(--main-hue) 90% 80%);
+    --main-color-lightest: hsl(var(--main-hue) 90% 98%);
 
     --alert-color: red;
     --alert-color-faded: #ffe5e5;
@@ -18,7 +18,9 @@ body {
     font-size: 1rem;
     height: 100%;
 }
-
+.hidden {
+    display: none;
+}
 main {
     margin: 2vh 6vw;
     background: white;
@@ -26,9 +28,10 @@ main {
 
 button {
     position: relative;
+    margin: 5px;
     padding: 4px 12px;
     background: white;
-    color: var(--main-color-darker);
+    color: var(--main-color-darkest);
     border: 1px solid var(--main-color-darker);
     border-radius: 2px;
     cursor: pointer;
@@ -40,9 +43,7 @@ button {
 }
 button:hover {
     box-shadow: none;
-    /*color: white;*/
     background: var(--main-color-lightest);
-    /*border: 1px solid transparent;*/
 }
 
 .content-header {
@@ -63,18 +64,34 @@ button:hover {
 
 header {
     display: flex;
-    flex-direction: column;
-    background-color: hsl(var(--main-hue) 65% 98%);
+    align-items: center;
+    background-color: hsl(var(--main-hue) 0% 95%);/*hsl(var(--main-hue) 65% 98%);*/
     color: white;
-    box-shadow: 1px 1px 6px -3px var(--main-color-darker);
+    box-shadow: 1px 1px 6px -3px var(--main-color-darkest);
 }
+header.admin:after {
+     content: 'Admin';
+     position: absolute;
+     right: 40px;
+     color: var(--main-color-darker);
+     border-bottom: 2px solid var(--main-color-darker);
+     font-size: 1rem;
+ }
+header.superAdmin:after {
+     content: 'Super admin';
+     position: relative;
+     right: 40px;
+     color: var(--main-color-darker);
+     border-bottom: 2px solid var(--main-color-darker);
+     font-size: 1rem;
+ }
 
 h1 {
     position: relative;
     display: block;
     width: fit-content;
     height: fit-content;
-    margin: 1vh var(--side-margin);
+    margin: 1vh 4vw;
     padding-right: 14px;
     background: var(--main-color-darkest);
     border-radius: 20px;
@@ -83,15 +100,6 @@ h1 {
     letter-spacing: 4px;
 }
 
-h1.admin:after {
-    content: ' Admin';
-    position: absolute;
-    top: 0.4em;
-    right: -4em;
-    color: var(--main-color-darker);
-    border-bottom: 2px solid var(--main-color-darker);
-    font-size: 0.75em;
-}
 h1:first-letter {
     font-size: 1.3em;
     border-radius: 20px 0 0 20px;
@@ -122,11 +130,11 @@ h2 {
 
 /* ---- FORM ---- */
 form {
-    margin: 2vh 2vw;
+    margin: 0; /*2vh 2vw;*/
 }
-input[disabled] {
+
+.aria-disabled  input {
     border: none;
-    /*color: var(--main-color-darker);*/
     color: hsl(calc(var(--main-hue) + 180deg) 50% 35%);
     background: none;
     font-size: 1rem;
@@ -146,7 +154,7 @@ input[disabled] {
 }
 /*todo en js : ajouter la classe focus sur le label quand on selectionne un input ou un textArea*/
 .form-field.focused label, .form-field:hover label {
-    border-bottom: 2px solid #228c75;
+    border-bottom: 2px solid var(--main-color-lighter);
 }
 .form-label {
     width: 100px;
