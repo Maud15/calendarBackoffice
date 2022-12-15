@@ -8,6 +8,8 @@
 
     --alert-color: red;
     --alert-color-faded: #ffe5e5;
+    --info-color: steelblue;
+    --info-color-faded: #eef7ff;
 
     --side-margin: 8vw;
 }
@@ -23,7 +25,6 @@ body {
 }
 main {
     margin: 2vh 6vw;
-    background: white;
 }
 
 button {
@@ -136,8 +137,19 @@ h2 {
 
 .error-message {
     background: var(--alert-color-faded);
-    color: red;
+    color: var(--alert-color);
     border: 1px solid var(--alert-color);
+    margin: 12px var(--side-margin);
+    padding: 0 4vw;
+}
+.info-message p:before {
+    content:"INFO : ";
+}
+
+.info-message {
+    background: var(--info-color-faded);
+    color: var(--info-color);
+    border: 1px solid var(--info-color);
     margin: 12px var(--side-margin);
     padding: 0 4vw;
 }

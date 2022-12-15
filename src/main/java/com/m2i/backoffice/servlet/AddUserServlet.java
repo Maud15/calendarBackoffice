@@ -37,7 +37,7 @@ public class AddUserServlet extends HttpServlet {
         User newUser = new User(email,pseudo,password,admin, superAdmin, firstname,lastname,city);
         new UserDao().create(newUser);
 
-//        resp.sendRedirect(req.getContextPath() + ListUserServlet.URL);
-        resp.sendRedirect(req.getContextPath() + AddUserServlet.URL);
+        req.setAttribute("info","Utilisateur créé avec succès");
+        req.getRequestDispatcher("/WEB-INF/user/add-user.jsp").forward(req,resp);
     }
 }

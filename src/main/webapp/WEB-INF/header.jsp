@@ -4,8 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 
 <head>
-    <title>Header</title>
     <link href="../resources/style/main.css" rel="stylesheet" type="text/css">
+    <script defer type="text/javascript" src="../resources/script/header.js"></script>
 </head>
 <header class='admin'>
     <h1>Klend'art</h1>
@@ -26,6 +26,11 @@
     <c:when test="${not empty param.errorMsg}">
         <div class="error-message">
             <p><c:out value="${param.errorMsg}"/></p>
+        </div>
+    </c:when>
+    <c:when test="${not empty param.info}">
+        <div id="info-msg" class="info-message">
+            <p><c:out value="${param.info}"/></p>
         </div>
     </c:when>
 </c:choose>

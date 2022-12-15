@@ -10,7 +10,10 @@
     <script defer type="text/javascript" src="../../resources/script/userDetails.js"></script>
 </head>
 <body>
-    <jsp:include page="../header.jsp"><jsp:param name="errorMsg" value="${requestScope.error}"/></jsp:include>
+    <jsp:include page="../header.jsp">
+        <jsp:param name="errorMsg" value="${requestScope.error}"/>
+        <jsp:param name="info" value="${requestScope.info}"/>
+    </jsp:include>
     <main>
         <div id="userDetailsHeader" class="content-header">
             <h2>Profil utilisateur <span class="userPseudoTag">${requestScope.user.getPseudo()}</span></h2>

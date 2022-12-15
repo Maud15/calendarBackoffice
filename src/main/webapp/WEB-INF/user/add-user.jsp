@@ -8,6 +8,7 @@
 <body>
     <jsp:include page="../header.jsp">
         <jsp:param name="errorMsg" value="${requestScope.error}"/>
+        <jsp:param name="info" value="${requestScope.info}"/>
         <jsp:param name="currentPage" value="addUser"/>
     </jsp:include>
 
@@ -88,7 +89,8 @@
                     </div>
                 </div>
                 <div>
-                    <button>Ajouter</button>
+                    <button type="reset" class="cancel">Vider les champs</button>
+                    <button type="submit" class="validate">Ajouter</button>
                 </div>
             </form>
         </div>

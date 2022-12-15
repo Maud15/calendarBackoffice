@@ -39,11 +39,13 @@ public class UpdateUserServlet extends HttpServlet {
 
         try {
             boolean isSuccess = new UserDao().update(user);
-            if(!isSuccess){
+            /*if(!isSuccess){
                 req.setAttribute("error","Echec de la modification de l'utilisateur");
             }
             req.setAttribute("userId",id);
-            req.getRequestDispatcher("user/details");
+            req.setAttribute("info","Utilisateur modifié avec succès");*/
+
+            resp.sendRedirect(DetailsUserServlet.URL + "?userId=" + id);
         } catch(Exception e) {
             e.printStackTrace();
         }
