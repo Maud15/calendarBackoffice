@@ -2,9 +2,12 @@ package com.m2i.backoffice.dao;
 
 import com.m2i.backoffice.model.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDao implements Dao<User>{
 
@@ -22,7 +25,7 @@ public class UserDao implements Dao<User>{
         return userList;
     }
 
-    /*@Override
+    @Override
     public Optional<User> get(Long id) {
         Optional<User> optUser = Optional.empty();
         EntityManager em = ConnectionManager.getEntityManager();
@@ -32,7 +35,7 @@ public class UserDao implements Dao<User>{
             e.printStackTrace();
         }
         return optUser;
-    }*/
+    }
 
     /*@Override
     public void update(User user) {
@@ -50,7 +53,7 @@ public class UserDao implements Dao<User>{
         }
     }*/
 
-    /*@Override
+    @Override
     public void delete(Long id) {
         EntityManager em = ConnectionManager.getEntityManager();
         EntityTransaction et = em.getTransaction();
@@ -66,5 +69,6 @@ public class UserDao implements Dao<User>{
         } finally {
             em.close();
         }
-    }*/
+    }
+
 }

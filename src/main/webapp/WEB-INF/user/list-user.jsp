@@ -13,11 +13,22 @@
   <title>Liste des utilisateurs</title>
 </head>
 <body>
-<p>Voici la liste des utilisateurs : <br> </p>
-<c:forEach var ="user" items="${usersList}">
-<p> Pseudo : <c:out value="${user.pseudo}"/> - Mail : <c:out value="${user.email}"/>  <button> Delete </button> <button> Details </button> </p>
-</c:forEach>
+  <jsp:include page="../header.jsp"><jsp:param name="errorMsg" value="${requestScope.error}"/></jsp:include>
+  <main>
+    <div class="content-header">
+      <h2>Liste des utilisateurs</h2>
+    </div>
 
+      <c:forEach var ="user" items="${usersList}">
+        <div style="display:flex"> Pseudo : <c:out value="${user.pseudo}"/> - Mail : <c:out value="${user.email}"/>
+          <form method="post" action="${pageContext.request.contextPath}/users/delete">
+            <input name="idUserDelete" type="hidden" value="${user.id}">
+            <button type="submit"> Delete </button>
+          </form>
+          <button><a href="${pageContext.request.contextPath}/user/details?userId=${user.id}"> Détails </a></button>
+        </div>
+      </c:forEach>
 
+  </main>
 </body>
 </html>
