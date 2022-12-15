@@ -7,34 +7,51 @@
 <head>
     <meta charset="UTF-8">
     <title>User details</title>
+    <script defer type="text/javascript" src="../../resources/script/userDetails.js"></script>
 </head>
 <body>
     <jsp:include page="../header.jsp"><jsp:param name="errorMsg" value="${requestScope.error}"/></jsp:include>
     <main>
-        <div class="content-header">
+        <div id="userDetailsHeader" class="content-header">
             <h2>Profil utilisateur <span class="userPseudoTag">${requestScope.user.getPseudo()}</span></h2>
-            <button type="button" >Edit</button>
+            <button id="editUser" type="button" >Edit</button>
         </div>
 
         <div class="main-content">
 
-            <form action="" method="post" aria-disabled="true">
-
+            <form id="formDetailsUser" class="aria-disabled" action="${pageContext.request.contextPath}/user/update" method="post">
+                <input type="hidden" name="id" value="${requestScope.user.id}">
                 <div class="form-fields">
-                    <div class="form-field">
-                        <div class="form-label">
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="form-value">
-                            <input  type="email" name="email" id="email" value="${requestScope.user.email}" disabled>
-                        </div>
-                    </div>
                     <div class="form-field">
                         <div class="form-label">
                             <label for="pseudo">Identifiant</label>
                         </div>
                         <div class="form-value">
-                            <input type="text" name="pseudo" id="pseudo" value="${requestScope.user.pseudo}" disabled>
+                            <input type="text" name="pseudo" id="pseudo" value="${requestScope.user.pseudo}">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="password">Mot de passe</label>
+                        </div>
+                        <div class="form-value">
+                            <input type="password" name="password" id="password" value="" placeholder="********">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="form-value">
+                            <input  type="email" name="email" id="email" value="${requestScope.user.email}">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="city">Ville</label>
+                        </div>
+                        <div class="form-value">
+                            <input type="text" name="city" id="city" value="${requestScope.user.city}" disabled>
                         </div>
                     </div>
                     <div class="form-field">
@@ -55,15 +72,6 @@
                     </div>
                     <div class="form-field">
                         <div class="form-label">
-                            <label for="city">Ville</label>
-                        </div>
-                        <div class="form-value">
-                            <input type="text" name="city" id="city" value="${requestScope.user.city}" disabled>
-                        </div>
-                    </div>
-                    <div class="form-field-placeholder"></div>
-                    <div class="form-field">
-                        <div class="form-label">
                             <label for="isAdmin">Administrateur</label>
                         </div>
                         <div class="form-value">
@@ -77,16 +85,24 @@
                         </div>
                         <div class="form-input">
                             <input type="checkbox" name="superAdmin" id="isSuperAdmin"
-                                   value="<c:if test="${requestScope.user.superAdmin != true}">0</c:if>" disabled>
+                                   value="<c:if test="${requestScope.user.superAdmin != true}">0</c:if>"
+<%--                                   TODO: ajouter une info dans le sessionScope qui permette de savoir
+                                             si notre utilisateur est SUPERADMIN = autorisé à changer la propriété SUPERADMIN d'un autre user--%>
+                                   class="<c:if test="${sessionScope.user.superAdmin != true}">forbidden</c:if>"
+                                   disabled>
                         </div>
                     </div>
                 </div>
+                <div class="form-buttons">
+                    <button id="cancel-edit" class="cancel" type="reset">Annuler</button>
+                    <button class="validate" type="submit">Valider</button>
+                </div>
 
-                <table style="border-collapse: collapse;background: white;border: 1px solid black;margin: 20px 100px">
+                <%--<table style="border-collapse: collapse;background: white;border: 1px solid lightgray;margin: 20px 100px">
                     <thead>
                         <tr>
-                            <th>Calendriers de ${requestScope.user.pseudo}</th>
-                            <th>Droits</th>
+                            <th style="padding: 5px 10px">Calendriers de <span class="user-data">${requestScope.user.pseudo}</span></th>
+                            <th style="padding: 5px 10px">Droits</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,7 +112,7 @@
                             </tr>
                         </c:forEach>
                     </tbody>
-                </table>
+                </table>--%>
 
             </form>
 

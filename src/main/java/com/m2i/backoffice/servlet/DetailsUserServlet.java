@@ -19,22 +19,21 @@ public class DetailsUserServlet  extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long userId = Long.parseLong(req.getParameter("userId"));
+        String strUserId = req.getParameter("userId");
+        Long userId;
+        if(strUserId == null) {
+            userId = (Long) req.getAttribute("userId");
+        } else {
+            userId = Long.parseLong(strUserId);
+        }
         Optional<User> optUser = usrService.get(userId);
         if(optUser.isPresent()) {
             req.setAttribute("user", optUser.get());
             req.getRequestDispatcher("/WEB-INF/user/details-user.jsp").forward(req,resp);
         } else {
-            req.setAttribute("error","Impossible de trouver l'utilisateur d'id : " + userId);
-            //req.getRequestDispatcher(ListUserServlet.URL).forward(req,resp);
-            req.getRequestDispatcher(AddUserServlet.URL).forward(req,resp);
+            req.setAttribute("error","Utilisateur introuvable");
+            req.getRequestDispatcher(ListUserServlet.URL).forward(req,resp);
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO
-        System.out.println("USER DETAILS SERVLET, METHOD POST NOT IMPLEMENTED");
     }
 
 }

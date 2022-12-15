@@ -52,6 +52,17 @@ public class User {
         this(null,email,pseudo,password,admin,superAdmin,firstname,lastname,city,null);
     }
 
+    public User(Long id, String email, String pseudo, String password, boolean admin, String firstname, String lastname, City city) {
+        this.id = id;
+        this.email = email;
+        this.pseudo = pseudo;
+        this.password = password;
+        this.admin = admin;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.city = city;
+    }
+
     public User(Long id, String email, String pseudo, String password, boolean admin, boolean superAdmin, String firstname, String lastname, City city, List<UserCalendarRights> calendarRightsList) {
         this.id = id;
         this.email = email;
