@@ -1,0 +1,26 @@
+@import url(main.css);
+
+/* ---- HEADER ---- */
+header {
+    display: flex;
+    align-items: center;
+    background-color: hsl(var(--main-hue) 0% 95%);/*hsl(var(--main-hue) 65% 98%);*/
+    color: white;
+    box-shadow: 1px 1px 6px -3px var(--main-color-darkest);
+}
+header.admin:after {
+    content: 'Admin';
+    position: absolute;
+    right: 40px;
+    color: var(--main-color-darker);
+    border-bottom: 2px solid var(--main-color-darker);
+    font-size: 1rem;
+}
+header.superAdmin:after {
+    content: 'Super admin';
+    position: relative;
+    right: 40px;
+    color: var(--main-color-darker);
+    border-bottom: 2px solid var(--main-color-darker);
+    font-size: 1rem;
+}
