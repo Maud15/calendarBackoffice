@@ -30,7 +30,7 @@
                             <label for="pseudo">Identifiant</label>
                         </div>
                         <div class="form-value">
-                            <input type="text" name="pseudo" id="pseudo" value="${requestScope.user.pseudo}">
+                            <input type="text" name="pseudo" id="pseudo" value="${requestScope.user.pseudo}" disabled>
                         </div>
                     </div>
                     <div class="form-field">
@@ -38,7 +38,7 @@
                             <label for="password">Mot de passe</label>
                         </div>
                         <div class="form-value">
-                            <input type="password" name="password" id="password" value="" placeholder="********">
+                            <input type="password" name="password" id="password" value="" placeholder="********" disabled>
                         </div>
                     </div>
                     <div class="form-field">
@@ -46,7 +46,7 @@
                             <label for="email">Email</label>
                         </div>
                         <div class="form-value">
-                            <input  type="email" name="email" id="email" value="${requestScope.user.email}">
+                            <input  type="email" name="email" id="email" value="${requestScope.user.email}" disabled>
                         </div>
                     </div>
                     <div class="form-field">

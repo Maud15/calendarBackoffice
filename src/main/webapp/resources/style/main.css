@@ -137,6 +137,13 @@ h2 {
     padding: 0 4vw;
 }
 
+/* ---- INPUT ---- */
+body input[type="checkbox"] {
+    height: 14px;
+    width: 14px;
+    margin: auto 0;
+}
+
 
 /* ---- specific ---- */
 .userPseudoTag {

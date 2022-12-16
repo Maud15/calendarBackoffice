@@ -1,0 +1,7 @@
+td {
+    padding: 4px 2vw;
+}
+
+td.actions {
+    display: flex;
+}

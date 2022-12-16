@@ -4,10 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Liste des utilisateurs</title>
-    <link href="../../resources/style/list-user.css" rel="stylesheet" type="text/css">
+    <link href="../../resources/style/table.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<jsp:include page="../header.jsp"><jsp:param name="errorMsg" value="${requestScope.error}"/></jsp:include>
+<jsp:include page="../header.jsp">
+    <jsp:param name="errorMsg" value="${requestScope.error}"/>
+    <jsp:param name="info" value="${requestScope.info}"/>
+    <jsp:param name="currentPage" value="usersList"/>
+</jsp:include>
 <main>
     <div class="content-header">
         <h2>Liste des utilisateurs</h2>
@@ -15,12 +19,11 @@
     <div class="main-content">
         <table>
             <thead>
-            <tr>
-                <td> Pseudo</td>
-                <td> Email </td>
-                <td> Supprimer</td>
-                <td> Détails</td>
-            </tr>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Email</th>
+                    <th aria-colspan="2">Actions</th>
+                </tr>
             </thead>
             <tbody>
 
@@ -32,16 +35,14 @@
                     <td>
                         <c:out value="${user.email}"/>
                     </td>
-                    <td>
-                        <form method="post" action="${pageContext.request.contextPath}/users/delete">
-                            <input name="idUserDelete" type="hidden" value="${user.id}">
-                            <button type="submit"> Delete </button>
-                        </form>
-                    </td>
-                    <td>
+                    <td class="actions">
                         <form method="get" action="${pageContext.request.contextPath}/user/details?userId=${user.id}">
                             <input name="userId" type="hidden" value="${user.id}">
                             <button type="submit"> Détails</button>
+                        </form>
+                        <form method="post" action="${pageContext.request.contextPath}/users/delete">
+                            <input name="idUserDelete" type="hidden" value="${user.id}">
+                            <button class="alert" type="submit"> Delete </button>
                         </form>
                     </td>
                 </tr>
