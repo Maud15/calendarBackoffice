@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 
 <head>
-    <link href="../resources/style/main.css" rel="stylesheet" type="text/css">
+    <link href="../resources/style/header.css" rel="stylesheet" type="text/css">
     <script defer type="text/javascript" src="../resources/script/header.js"></script>
 </head>
 <header class='admin'>
@@ -19,6 +19,10 @@
         <button>Créer un nouvel utilisateur</button>
     </form>
     </c:if>
+
+    <form style="margin:0" action="${pageContext.request.contextPath}/logout" method="post">
+        <button class="alert">Se déconnecter</button>
+    </form>
 </header>
 
 

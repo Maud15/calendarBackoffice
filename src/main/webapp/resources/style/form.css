@@ -1,0 +1,38 @@
+/* ---- FORM ---- */
+form {
+    margin: 0; /*2vh 2vw;*/
+}
+.aria-disabled  input {
+    border: none;
+    color: var(--userInfo-color);
+    background: none;
+    font-size: 1rem;
+}
+
+.aria-disabled .form-buttons {
+    display: none;
+}
+
+.form-fields {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-items: flex-start;
+    margin-bottom: 20px;
+}
+.form-field {
+    display: flex;
+    padding: 1vh 0;
+    border-left: 2px solid lightgray;
+}
+.form-label {
+    width: 100px;
+    margin: 0 2vw;
+}
+.form-value {
+    margin-right: 2vw;
+}
+
+/*todo en js : ajouter la classe focus sur le label quand on selectionne un input ou un textArea*/
+.form-field.focused label, .form-field:hover label {
+    border-bottom: 2px solid var(--main-color-lighter);
+}
