@@ -1,0 +1,12 @@
+table{
+    text-align: center;
+}
+
+table,
+td {
+}
+
+thead,
+tfoot {
+    font-weight: bold ;
+}
