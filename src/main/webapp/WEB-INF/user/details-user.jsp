@@ -79,7 +79,8 @@
                         </div>
                         <div class="form-value">
                             <input type="checkbox" name="admin" id="isAdmin"
-                                   value="<c:if test="${requestScope.user.admin != true}">0</c:if>" disabled>
+                                   value="<c:if test="${requestScope.user.admin != true}">0</c:if>" disabled
+                                   <c:if test="${requestScope.user.admin == true}" > checked</c:if> >
                         </div>
                     </div>
                     <div class="form-field">
@@ -92,7 +93,8 @@
 <%--                                   TODO: ajouter une info dans le sessionScope qui permette de savoir
                                              si notre utilisateur est SUPERADMIN = autorisé à changer la propriété SUPERADMIN d'un autre user--%>
                                    class="<c:if test="${sessionScope.user.superAdmin != true}">forbidden</c:if>"
-                                   disabled>
+                                   disabled
+                                   <c:if test="${requestScope.user.superAdmin == true}" > checked</c:if>  >
                         </div>
                     </div>
                 </div>

@@ -31,12 +31,24 @@ public class AddUserServlet extends HttpServlet {
         String cityStr = req.getParameter("city");
         //todo: manage city
         City city = null;
-        boolean admin = Boolean.getBoolean(req.getParameter("admin"));
-        boolean superAdmin = Boolean.getBoolean(req.getParameter("superAdmin"));
-
+        String adm = req.getParameter("admin");
+        String superAdm = req.getParameter("superAdmin");
+        boolean admin;
+        boolean superAdmin;
+        if(adm == null){
+            admin = false;
+        }
+        else{
+            admin = true;
+        }
+        if(superAdm == null){
+            superAdmin = false;
+        }
+        else{
+            superAdmin = true;
+        }
         User newUser = new User(email,pseudo,password,admin, superAdmin, firstname,lastname,city);
         new UserDao().create(newUser);
-
         req.setAttribute("info","Utilisateur créé avec succès");
         req.getRequestDispatcher("/WEB-INF/user/add-user.jsp").forward(req,resp);
     }

@@ -1,7 +1,7 @@
 package com.m2i.backoffice.servlet;
 
-import com.m2i.backoffice.dao.UserDao;
 import com.m2i.backoffice.model.User;
+import com.m2i.backoffice.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,16 +18,11 @@ public class ListUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        UserDao userDao = new UserDao();
+        UserService service = new UserService();
         System.out.println("Tous les utilisateurs");
-        List<User> usersList = userDao.getAll();
-        for (User user: usersList ) {
-            System.out.println(user.getPseudo());
-        }
+        List<User> usersList = service.getAll();
         req.setAttribute("usersList", usersList);
         req.getRequestDispatcher("/WEB-INF/user/list-user.jsp").forward(req, resp);
-
     }
 
     @Override

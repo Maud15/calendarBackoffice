@@ -1,8 +1,6 @@
 package com.m2i.backoffice.servlet;
 
-
-import com.m2i.backoffice.dao.UserDao;
-import com.m2i.backoffice.model.User;
+import com.m2i.backoffice.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @WebServlet(urlPatterns = "/users/delete")
 public class DeleteUserServlet extends HttpServlet {
@@ -19,10 +16,9 @@ public class DeleteUserServlet extends HttpServlet {
         String idUser = req.getParameter("idUserDelete");
         try{
             Long id = Long.parseLong(idUser);
-            UserDao userDao = new UserDao();
-            Optional<User> user = userDao.get(id);
-            if(user.isPresent()){
-                userDao.delete(id);
+            UserService service = new UserService();
+            if(service.delete(id)){
+                System.out.println("Delete happen");
             }
             else{
                 System.err.println("User not found ! Can't delete it !");

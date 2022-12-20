@@ -27,7 +27,14 @@ public class UpdateUserServlet extends HttpServlet {
         City city = null;
         String firstname = req.getParameter("firstname");
         String lastname = req.getParameter("lastname");
-        boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
+        String adm = req.getParameter("admin");
+        boolean admin;
+        if(adm == null){
+            admin = false;
+        }
+        else{
+            admin = true;
+        }
 
 //        if(currentUser.isSuperAdmin()) {
 //            String superAdmin = req.getParameter("superAdmin");

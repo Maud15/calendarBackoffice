@@ -75,7 +75,4 @@ public interface Dao<T> {
         return isSuccess;
     }
 
-    Optional<User> get(Long id);
-
-    void delete(Long id);
 }
