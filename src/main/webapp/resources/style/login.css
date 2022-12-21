@@ -1,0 +1,36 @@
+@import url(main.css);
+@import url("header.css") h1;
+
+/* ---- LOGIN ---- */
+main.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    top: 20vh;
+    text-align: center;
+    width: fit-content;
+    box-shadow: 0 0 4px -1px gray;
+    border-radius: 8px;
+    padding: 10vh 10vw ;
+}
+
+.login-container .form-field {
+    border: none;
+}
+.login-container .form-label {
+    margin-left: 0;
+    text-align: left;
+}
+/*.login-container input {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border-width: 0 0 1px 1px;
+    border-color: var(--main-color-darkest);
+    color: var(--main-color-darkest);
+    box-shadow: -3px 3px 4px -4px gray;
+}*/
+
+.login-container button {
+    margin-top: 22px;
+}

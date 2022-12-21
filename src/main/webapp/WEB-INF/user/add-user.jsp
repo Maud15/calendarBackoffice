@@ -12,7 +12,6 @@
         <jsp:param name="currentPage" value="addUser"/>
     </jsp:include>
 
-<%-- Todo Maud : voir comment utiliser plutot une grid ici pour avoir un bel affichage --%>
     <main>
         <div class="content-header">
             <h2>Ajouter un utilisateur</h2>
