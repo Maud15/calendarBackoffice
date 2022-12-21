@@ -15,7 +15,7 @@ import java.util.Optional;
 public class DetailsUserServlet  extends HttpServlet {
 
     public static final String URL = "/user/details";
-    private static final UserService usrService = new UserService();
+    private static final UserService service = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,7 +26,7 @@ public class DetailsUserServlet  extends HttpServlet {
         } else {
             userId = Long.parseLong(strUserId);
         }
-        Optional<User> optUser = usrService.get(userId);
+        Optional<User> optUser = service.get(userId);
         if(optUser.isPresent()) {
             req.setAttribute("user", optUser.get());
             req.getRequestDispatcher("/WEB-INF/user/details-user.jsp").forward(req,resp);

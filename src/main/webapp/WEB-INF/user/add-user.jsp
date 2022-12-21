@@ -32,10 +32,10 @@
                     </div>
                     <div class="form-field">
                         <div class="form-label">
-                            <label for="password">Mot de passe</label>
+                            <label for="lastname">Nom</label>
                         </div>
                         <div class="form-value">
-                            <input id="password" type="password" name="password">
+                            <input id="lastname" type="text" name="lastname">
                         </div>
                     </div>
                     <div class="form-field">
@@ -48,26 +48,26 @@
                     </div>
                     <div class="form-field">
                         <div class="form-label">
-                            <label for="city">Ville</label>
-                        </div>
-                        <div class="form-value">
-                            <input id="city" type="text" name="city">
-                        </div>
-                    </div>
-                    <div class="form-field">
-                        <div class="form-label">
-                            <label for="lastname">Nom</label>
-                        </div>
-                        <div class="form-value">
-                            <input id="lastname" type="text" name="lastname">
-                        </div>
-                    </div>
-                    <div class="form-field">
-                        <div class="form-label">
                             <label for="firstname">Prénom</label>
                         </div>
                         <div class="form-value">
                             <input id="firstname" type="text" name="firstname">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="password">Mot de passe</label>
+                        </div>
+                        <div class="form-value">
+                            <input id="password" type="password" name="password">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="city">Ville</label>
+                        </div>
+                        <div class="form-value">
+                            <input id="city" type="text" name="city">
                         </div>
                     </div>
                     <div class="form-field">
@@ -78,6 +78,7 @@
                             <input id="isAdmin" type="checkbox" name="admin">
                         </div>
                     </div>
+                    <div class="placeholder"></div>
                     <div class="form-field">
                         <div class="form-label">
                             <label for="isSuperAdmin">Super administrateur</label>

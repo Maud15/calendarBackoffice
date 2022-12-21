@@ -1,8 +1,7 @@
 package com.m2i.backoffice.servlet;
 
-import com.m2i.backoffice.dao.UserDao;
 import com.m2i.backoffice.model.City;
-import com.m2i.backoffice.model.User;
+import com.m2i.backoffice.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,41 +14,28 @@ import java.io.IOException;
 public class UpdateUserServlet extends HttpServlet {
 
     public static final String URL = "/user/update";
+    private static final UserService service = new UserService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO
-        System.out.println("SI MODIFICATION SUR CHAMP SUPERADMIN VEFIFIER QUE L'ADMIN CONNECTE EST BIEN UN SUPERADMIN");
         Long id = Long.parseLong(req.getParameter("id"));
         String pseudo = req.getParameter("pseudo");
-        String password = req.getParameter("password");
         String email = req.getParameter("email");
-        City city = null;
         String firstname = req.getParameter("firstname");
         String lastname = req.getParameter("lastname");
+        City city = null;
         boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
+        boolean superAdmin = Boolean.parseBoolean(req.getParameter("superAdmin"));
 
-//        if(currentUser.isSuperAdmin()) {
-//            String superAdmin = req.getParameter("superAdmin");
-//            User user = new User(email,pseudo,password,admin,superAdmin,firstname,lastname,city);
-//        } else {
-            User user = new User(id, email, pseudo, password, admin, firstname, lastname, city);
+        boolean isSuccess = service.update(id, pseudo, email, firstname, lastname,city, admin,superAdmin);
 
-//        }
-
-        try {
-            boolean isSuccess = new UserDao().update(user);
-            /*if(!isSuccess){
-                req.setAttribute("error","Echec de la modification de l'utilisateur");
-            }
-            req.setAttribute("userId",id);
-            req.setAttribute("info","Utilisateur modifié avec succès");*/
-
-            resp.sendRedirect(DetailsUserServlet.URL + "?userId=" + id);
-        } catch(Exception e) {
-            e.printStackTrace();
+        if (!isSuccess) {
+            req.setAttribute("error", "Echec de la modification de l'utilisateur");
         }
+        req.setAttribute("userId", id);
+        req.setAttribute("info", "Utilisateur modifié avec succès");
 
+        resp.sendRedirect(DetailsUserServlet.URL + "?userId=" + id);
     }
 
 }

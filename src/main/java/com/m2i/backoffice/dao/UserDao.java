@@ -37,22 +37,6 @@ public class UserDao implements Dao<User>{
         return optUser;
     }
 
-    /*@Override
-    public void update(User user) {
-        EntityManager em = ConnectionManager.getEntityManager();
-        EntityTransaction et = em.getTransaction();
-        try {
-            et.begin();
-            em.merge(user);
-            et.commit();
-        } catch(Exception e) {
-            if(et.isActive()) {et.rollback();}
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-    }*/
-
     @Override
     public void delete(Long id) {
         EntityManager em = ConnectionManager.getEntityManager();

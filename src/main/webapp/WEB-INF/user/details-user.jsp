@@ -35,10 +35,10 @@
                     </div>
                     <div class="form-field">
                         <div class="form-label">
-                            <label for="password">Mot de passe</label>
+                            <label for="lastname">Nom</label>
                         </div>
                         <div class="form-value">
-                            <input type="password" name="password" id="password" value="" placeholder="********" disabled>
+                            <input type="text" name="lastname" id="lastname" value="${requestScope.user.lastname}" disabled>
                         </div>
                     </div>
                     <div class="form-field">
@@ -47,22 +47,6 @@
                         </div>
                         <div class="form-value">
                             <input  type="email" name="email" id="email" value="${requestScope.user.email}" disabled>
-                        </div>
-                    </div>
-                    <div class="form-field">
-                        <div class="form-label">
-                            <label for="city">Ville</label>
-                        </div>
-                        <div class="form-value">
-                            <input type="text" name="city" id="city" value="${requestScope.user.city}" disabled>
-                        </div>
-                    </div>
-                    <div class="form-field">
-                        <div class="form-label">
-                            <label for="lastname">Nom</label>
-                        </div>
-                        <div class="form-value">
-                            <input type="text" name="lastname" id="lastname" value="${requestScope.user.lastname}" disabled>
                         </div>
                     </div>
                     <div class="form-field">
@@ -80,6 +64,14 @@
                         <div class="form-value">
                             <input type="checkbox" name="admin" id="isAdmin"
                                    value="<c:if test="${requestScope.user.admin != true}">0</c:if>" disabled>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="city">Ville</label>
+                        </div>
+                        <div class="form-value">
+                            <input type="text" name="city" id="city" value="${requestScope.user.city}" disabled>
                         </div>
                     </div>
                     <div class="form-field">

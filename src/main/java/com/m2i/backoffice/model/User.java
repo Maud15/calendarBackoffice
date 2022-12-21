@@ -40,39 +40,39 @@ public class User {
     public User() {
     }
 
-    public User(String email, String pseudo, String password, boolean admin) {
-        this(email,pseudo,password,admin,false);
+    public User(String pseudo, String email, String password, String firstname, String lastname, City city, boolean admin, boolean superAdmin) {
+        this(null,pseudo,email,password,firstname,lastname,city,admin,superAdmin, null);
     }
 
-    public User(String email, String pseudo, String password, boolean admin, boolean superAdmin) {
-        this(email,pseudo,password,admin,superAdmin,null,null,null);
-    }
-
-    public User(String email, String pseudo, String password, boolean admin, boolean superAdmin, String firstname, String lastname, City city) {
-        this(null,email,pseudo,password,admin,superAdmin,firstname,lastname,city,null);
-    }
-
-    public User(Long id, String email, String pseudo, String password, boolean admin, String firstname, String lastname, City city) {
+/*    public User(Long id, String pseudo, String email, String firstname, String lastname, City city, boolean admin, boolean superAdmin) {
         this.id = id;
-        this.email = email;
         this.pseudo = pseudo;
-        this.password = password;
-        this.admin = admin;
+        this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.city = city;
-    }
-
-    public User(Long id, String email, String pseudo, String password, boolean admin, boolean superAdmin, String firstname, String lastname, City city, List<UserCalendarRights> calendarRightsList) {
-        this.id = id;
-        this.email = email;
-        this.pseudo = pseudo;
-        this.password = password;
-        this.admin = admin;
         this.superAdmin = superAdmin;
+        if(superAdmin) {
+            this.admin = true;
+        } else {
+            this.admin = admin;
+        }
+    }*/
+
+    public User(Long id, String pseudo, String email, String password, String firstname, String lastname, City city, boolean admin, boolean superAdmin, List<UserCalendarRights> calendarRightsList) {
+        this.id = id;
+        this.pseudo = pseudo;
+        this.email = email;
+        this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.city = city;
+        this.superAdmin = superAdmin;
+        if(superAdmin) {
+            this.admin = true;
+        } else {
+            this.admin = admin;
+        }
         this.calendarRightsList = calendarRightsList;
     }
 
