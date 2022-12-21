@@ -21,7 +21,7 @@
     </c:if>
 
     <form style="margin:0" action="${pageContext.request.contextPath}/logout" method="post">
-        <button class="alert">Se déconnecter</button>
+        <button class="logout">Se déconnecter</button>
     </form>
 </header>
 

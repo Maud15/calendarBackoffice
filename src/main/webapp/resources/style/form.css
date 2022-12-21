@@ -2,17 +2,6 @@
 form {
     margin: 0; /*2vh 2vw;*/
 }
-.aria-disabled  input {
-    border: none;
-    color: var(--userInfo-color);
-    background: none;
-    font-size: 1rem;
-}
-
-.aria-disabled .form-buttons {
-    display: none;
-}
-
 .form-fields {
     display: grid;
     grid-template-columns: repeat(2, auto);
@@ -35,4 +24,75 @@ form {
 /*todo en js : ajouter la classe focus sur le label quand on selectionne un input ou un textArea*/
 .form-field.focused label, .form-field:hover label {
     border-bottom: 2px solid var(--main-color-lighter);
+}
+
+/* ---- INPUT ---- */
+.form-input:before {
+    vertical-align: middle;
+}
+
+body input[type="checkbox"] {
+    height: 14px;
+    width: 14px;
+    margin: auto 0;
+}
+input[type=text], input[type=email], input[type=password]{
+    padding: 4px 8px;
+    border-radius: 4px;
+    border-width: 0 0 1px 1px;
+    border-color: var(--main-color-darkest);
+    color: var(--main-color-darkest);
+    box-shadow: -3px 3px 4px -4px gray;
+}
+input:focus-visible {
+    outline-color: var(--main-color-darkest);
+}
+
+/* ---- ARIA-DISABLED ---- */
+.aria-disabled  input {
+    border: none;
+    background: none;
+    font-size: 1rem;
+}
+
+.aria-disabled .form-buttons {
+    display: none;
+}
+.aria-disabled input[type] {
+    box-shadow: none;
+}
+/* ---- INPUT ---- */
+.form-input:before {
+    vertical-align: middle;
+}
+
+body input[type="checkbox"] {
+    height: 14px;
+    width: 14px;
+    margin: auto 0;
+}
+input[type=text], input[type=email], input[type=password]{
+    padding: 4px 8px;
+    border-radius: 4px;
+    border-width: 0 0 1px 1px;
+    border-color: var(--main-color-darkest);
+    color: var(--main-color-darkest);
+    box-shadow: -3px 3px 4px -4px gray;
+}
+input:focus-visible {
+    outline-color: var(--main-color-darkest);
+}
+
+/* ---- ARIA-DISABLED ---- */
+.aria-disabled  input {
+    border: none;
+    background: none;
+    font-size: 1rem;
+}
+
+.aria-disabled .form-buttons {
+    display: none;
+}
+.aria-disabled input[type] {
+    box-shadow: none;
 }
