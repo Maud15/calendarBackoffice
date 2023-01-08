@@ -28,9 +28,8 @@ public class UserService {
                 throw new UserAlreadyExistsException("email",email);
             } else {
                 Role role = getRoleByName(roleName);
-                String hashSalt = BCrypt.gensalt();
-                String hashedPassword = BCrypt.hashpw(password, hashSalt);
-                User newUser = new User(pseudo, email, hashedPassword, hashSalt, firstname, lastname, null, List.of(role)/* calendarRightsList*/);
+                String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+                User newUser = new User(pseudo, email, hashedPassword, firstname, lastname, null, List.of(role)/* calendarRightsList*/);
                 return Optional.of(USER_DAO.create(newUser));
             }
         } else {

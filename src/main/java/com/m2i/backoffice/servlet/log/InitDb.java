@@ -26,9 +26,9 @@ public class InitDb extends HttpServlet {
         Role roleU = roleDao.create(new Role(RoleEnum.ROLE_USER));
         Role roleA = roleDao.create(new Role(RoleEnum.ROLE_ADMIN));
         Role roleSA = roleDao.create(new Role(RoleEnum.ROLE_SUPER_ADMIN));
-        new UserDao().create(new User("sa", "sa@gmail.com", "mdp", BCrypt.gensalt(), "admin","super",null, List.of(roleSA)));
-        new UserDao().create(new User("toto", "toto@gmail.com", "mdp", BCrypt.gensalt(), "toto","admin",null, List.of(roleA)));
-        new UserDao().create(new User("tutu", "tutu@gmail.com", "mdp", BCrypt.gensalt(), "tutu","user",null, List.of(roleU)));
+        new UserDao().create(new User("sa", "sa@gmail.com", BCrypt.hashpw("mdp",BCrypt.gensalt()), "admin","super",null, List.of(roleSA)));
+        new UserDao().create(new User("toto", "toto@gmail.com", BCrypt.hashpw("mdp",BCrypt.gensalt()), "toto","admin",null, List.of(roleA)));
+        new UserDao().create(new User("tutu", "tutu@gmail.com", BCrypt.hashpw("mdp",BCrypt.gensalt()), "tutu","user",null, List.of(roleU)));
         resp.sendRedirect(Login.URL);
     }
 }

@@ -13,9 +13,7 @@ public class UserCalendarRightsId implements Serializable {
     @Column(name="calendar_id")
     private Long calendarId;
 
-    public UserCalendarRightsId(){
-
-    }
+    public UserCalendarRightsId(){}
 
     public UserCalendarRightsId(Long userId, Long calendarId) {
         this.userId = userId;

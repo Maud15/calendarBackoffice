@@ -36,7 +36,7 @@ public class Login extends HttpServlet {
             Optional<User> optUser = new UserDao().getByPseudo(username);
             if(optUser.isPresent()) {
                 User user = optUser.get();
-                if (user.isAdminOrSuperAdmin() && BCrypt.checkpw(user.getPassword(), BCrypt.hashpw(password, user.getHashSalt()))) {
+                if (user.isAdminOrSuperAdmin() && BCrypt.checkpw(password, user.getPassword())) {
                     HttpSession session = req.getSession(true);
                     session.setAttribute("username", username);
                     Optional<Role> optUserRole = user.getRoleList().stream().findFirst();
