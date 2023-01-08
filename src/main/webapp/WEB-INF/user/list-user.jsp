@@ -22,6 +22,7 @@
                 <tr>
                     <th>Pseudo</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th aria-colspan="2">Actions</th>
                 </tr>
             </thead>
@@ -34,6 +35,9 @@
                     </td>
                     <td>
                         <c:out value="${user.email}"/>
+                    </td>
+                    <td>
+                        <c:out value="${user.roleList.stream().findFirst().get().getName()}"/>
                     </td>
                     <td class="actions">
                         <form method="get" action="${pageContext.request.contextPath}/user/details?userId=${user.id}">

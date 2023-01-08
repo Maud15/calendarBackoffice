@@ -8,33 +8,38 @@ public class Calendar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idCalendar")
+    @Column(name = "calendar_id")
     private Long id;
 
-    private String name;
+//    private String name;
 
-    @Column(nullable = false)
+    @Column(name = "is_main_calendar", nullable = false)
     private boolean isMainCalendar;
 
-    @OneToMany(targetEntity = UserCalendarRights.class, mappedBy = "calendar")
+    @OneToMany(mappedBy = "calendar")
     private List<UserCalendarRights> calendarUserRightsList;
 
-    @ManyToMany
+    @OneToMany
+    @JoinColumn(referencedColumnName = "calendar_id")
     private List<Event> eventsList;
 
+    public Calendar(){}
+    public Calendar(Long id){
+        this.id = id;
+    }
+    public Calendar(boolean isMainCalendar){
+        this.isMainCalendar = isMainCalendar;
+    }
+    public Calendar(Long id,  boolean isMainCalendar){
+        this.id = id;
+        this.isMainCalendar = isMainCalendar;
+    }
 
     public Long getId() {
         return id;
     }
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 
     public boolean isMainCalendar() {

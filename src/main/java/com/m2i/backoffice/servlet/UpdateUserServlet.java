@@ -1,6 +1,5 @@
 package com.m2i.backoffice.servlet;
 
-import com.m2i.backoffice.model.City;
 import com.m2i.backoffice.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,17 +16,16 @@ public class UpdateUserServlet extends HttpServlet {
     private static final UserService service = new UserService();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Long id = Long.parseLong(req.getParameter("id"));
         String pseudo = req.getParameter("pseudo");
         String email = req.getParameter("email");
         String firstname = req.getParameter("firstname");
         String lastname = req.getParameter("lastname");
-        City city = null;
-        boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
-        boolean superAdmin = Boolean.parseBoolean(req.getParameter("superAdmin"));
+        String roleName = req.getParameter("role");
+        String cityName = null;
 
-        boolean isSuccess = service.update(id, pseudo, email, firstname, lastname,city, admin,superAdmin);
+        boolean isSuccess = service.update(id, pseudo, email, firstname, lastname, cityName , roleName);
 
         if (!isSuccess) {
             req.setAttribute("error", "Echec de la modification de l'utilisateur");

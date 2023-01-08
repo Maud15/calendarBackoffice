@@ -1,11 +1,15 @@
 package com.m2i.backoffice.servlet.log;
 
+import com.m2i.backoffice.dao.UserDao;
+import com.m2i.backoffice.model.Role;
+import com.m2i.backoffice.model.User;
 import com.m2i.backoffice.servlet.ListUserServlet;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @WebServlet(urlPatterns = Login.URL)
 public class Login extends HttpServlet {
@@ -15,32 +19,53 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        if(session != null && session.getAttribute("username") != null){
+        if (session != null && session.getAttribute("username") != null) {
             resp.sendRedirect(ListUserServlet.URL);
         } else {
-            req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req,resp);
+            req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if(username.equals("Maud") && password.equals("azerty")) {
-            HttpSession session = req.getSession(true);
-            session.setAttribute("username", username);
-            session.setMaxInactiveInterval(30 * 60);
+        try {
+            Optional<User> optUser = new UserDao().getByName(username);
+            if(optUser.isPresent()) {
+                User user = optUser.get();
+                //TODO crypt password
+                if (user.isAdminOrSuperAdmin() && user.getPassword().equals(password)) {
+                    HttpSession session = req.getSession(true);
+                    session.setAttribute("username", username);
+                    Optional<Role> optUserRole = user.getRoleList().stream().findFirst();
+                    optUserRole.ifPresent(role -> session.setAttribute("role", role.getName()));
+                    session.setMaxInactiveInterval(30 * 60);
 
-            Cookie cookieUser = new Cookie("username", username);
-            resp.addCookie(cookieUser);
+                    Cookie cookieUser = new Cookie("username", username);
+                    resp.addCookie(cookieUser);
 
-            resp.sendRedirect(ListUserServlet.URL);
-        } else {
-            req.setAttribute("loginFail", true);
-            req.setAttribute("error", "Couple identifiant / Mot de passe inconnu");
-            doGet(req, resp);
+                    resp.sendRedirect(ListUserServlet.URL);
+                } else {
+                    req = setReqAttributesForLoginFail(req);
+                    doGet(req, resp);
+                }
+
+            } else {
+                req = setReqAttributesForLoginFail(req);
+                doGet(req, resp);
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    public HttpServletRequest setReqAttributesForLoginFail(HttpServletRequest req) {
+        req.setAttribute("loginFail", true);
+        req.setAttribute("error", "Identifiant ou mot de passe erroné");
+        return req;
     }
 
 }

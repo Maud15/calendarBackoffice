@@ -8,7 +8,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idUser")
+    @Column(name = "user_id")
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -18,20 +18,23 @@ public class User {
     private String pseudo;
 
     @Column(nullable = false)
-    private String password; // todo : gérer le hashage du password pour ne pas le stocker en clair
+    private String password;
 
     private String firstname;
     private String lastname;
 
-    @Column(name="isAdmin", nullable = false)
-    private boolean admin;
-
-    @Column(name="isSuperAdmin", nullable = false)
-    private boolean superAdmin;
-
     @ManyToOne
-    @JoinColumn(name="idCity")
+    @JoinColumn(name="city_id")
     private City city;
+
+    //On le met en EAGER pour ne pas avoir de problème avec le getAuthorities
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roleList;
 
     @OneToMany(targetEntity = UserCalendarRights.class, mappedBy = "user")
     private List<UserCalendarRights> calendarRightsList;
@@ -39,27 +42,20 @@ public class User {
 
     public User() {
     }
-
-    public User(String pseudo, String email, String password, String firstname, String lastname, City city, boolean admin, boolean superAdmin) {
-        this(null,pseudo,email,password,firstname,lastname,city,admin,superAdmin, null);
+    public User(Long id){
+        this.id = id;
     }
 
-/*    public User(Long id, String pseudo, String email, String firstname, String lastname, City city, boolean admin, boolean superAdmin) {
-        this.id = id;
+    public User(String pseudo, String email, String password, String firstname, String lastname, City city, List<Role> roleList) {
         this.pseudo = pseudo;
         this.email = email;
+        this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.city = city;
-        this.superAdmin = superAdmin;
-        if(superAdmin) {
-            this.admin = true;
-        } else {
-            this.admin = admin;
-        }
-    }*/
-
-    public User(Long id, String pseudo, String email, String password, String firstname, String lastname, City city, boolean admin, boolean superAdmin, List<UserCalendarRights> calendarRightsList) {
+        this.roleList = roleList;
+    }
+    public User(Long id, String pseudo, String email, String password, String firstname, String lastname, City city, List<Role> roleList, List<UserCalendarRights> calendarRightsList) {
         this.id = id;
         this.pseudo = pseudo;
         this.email = email;
@@ -67,15 +63,17 @@ public class User {
         this.firstname = firstname;
         this.lastname = lastname;
         this.city = city;
-        this.superAdmin = superAdmin;
-        if(superAdmin) {
-            this.admin = true;
-        } else {
-            this.admin = admin;
-        }
+        this.roleList = roleList;
         this.calendarRightsList = calendarRightsList;
     }
 
+    public boolean isAdminOrSuperAdmin() {
+        return this.getRoleList().stream()
+                .anyMatch(role -> role.getName() == RoleEnum.ROLE_SUPER_ADMIN || role.getName() == RoleEnum.ROLE_ADMIN);
+    }
+    public boolean isSuperAdmin() {
+        return this.getRoleList().stream().anyMatch(role -> role.getName() == RoleEnum.ROLE_SUPER_ADMIN);
+    }
 
     public Long getId() {
         return id;
@@ -119,20 +117,6 @@ public class User {
         this.lastname = lastname;
     }
 
-    public boolean isAdmin() {
-        return this.admin;
-    }
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
-    public boolean isSuperAdmin() {
-        return superAdmin;
-    }
-    public void setSuperAdmin(boolean superAdmin) {
-        this.superAdmin = superAdmin;
-    }
-
     public List<UserCalendarRights> getCalendarRightsList() {
         return calendarRightsList;
     }
@@ -145,5 +129,12 @@ public class User {
     }
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
     }
 }

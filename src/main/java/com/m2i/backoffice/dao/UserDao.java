@@ -4,6 +4,7 @@ import com.m2i.backoffice.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,4 +56,17 @@ public class UserDao implements Dao<User>{
         }
     }
 
+    public Optional<User> getByName(String username) {
+        Optional<User> optUser = Optional.empty();
+        EntityManager em = ConnectionManager.getEntityManager();
+        try {
+            String usernameQuery = "from User where pseudo = :username";
+            optUser = Optional.of(em.createQuery(usernameQuery, User.class)
+                    .setParameter("username", username)
+                    .getSingleResult());
+        } catch(NoResultException e) {
+            e.printStackTrace();
+        }
+        return optUser;
+    }
 }

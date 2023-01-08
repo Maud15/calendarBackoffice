@@ -59,15 +59,6 @@
                     </div>
                     <div class="form-field">
                         <div class="form-label">
-                            <label for="isAdmin">Administrateur</label>
-                        </div>
-                        <div class="form-value">
-                            <input type="checkbox" name="admin" id="isAdmin"
-                                   value="<c:if test="${requestScope.user.admin != true}">0</c:if>" disabled>
-                        </div>
-                    </div>
-                    <div class="form-field">
-                        <div class="form-label">
                             <label for="city">Ville</label>
                         </div>
                         <div class="form-value">
@@ -76,17 +67,35 @@
                     </div>
                     <div class="form-field">
                         <div class="form-label">
+                            <label for="role">Role</label>
+                        </div>
+                        <div class="form-value">
+                            <%--TODO : change input type--%>
+                            <input type="text" name="role" id="role" value="${requestScope.user.roleList.stream().findFirst().get().getName()}" disabled>
+                        </div>
+                    </div>
+                    <%--<div class="form-field">
+                        <div class="form-label">
+                            <label for="isAdmin">Administrateur</label>
+                        </div>
+                        <div class="form-value">
+                            <input type="checkbox" name="admin" id="isAdmin"
+                                   value="<c:if test="${requestScope.user.admin != true}">0</c:if>" disabled>
+                        </div>
+                    </div>--%>
+                    <%--<div class="form-field">
+                        <div class="form-label">
                             <label for="isSuperAdmin">Super Administrateur</label>
                         </div>
                         <div class="form-input">
                             <input type="checkbox" name="superAdmin" id="isSuperAdmin"
                                    value="<c:if test="${requestScope.user.superAdmin != true}">0</c:if>"
-<%--                                   TODO: ajouter une info dans le sessionScope qui permette de savoir
-                                             si notre utilisateur est SUPERADMIN = autorisé à changer la propriété SUPERADMIN d'un autre user--%>
+&lt;%&ndash;                                   TODO: ajouter une info dans le sessionScope qui permette de savoir
+                                             si notre utilisateur est SUPERADMIN = autorisé à changer la propriété SUPERADMIN d'un autre user&ndash;%&gt;
                                    class="<c:if test="${sessionScope.user.superAdmin != true}">forbidden</c:if>"
                                    disabled>
                         </div>
-                    </div>
+                    </div>--%>
                 </div>
                 <div class="form-buttons">
                     <button id="cancel-edit" class="cancel" type="reset">Annuler</button>

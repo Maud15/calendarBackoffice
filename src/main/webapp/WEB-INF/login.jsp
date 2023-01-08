@@ -5,10 +5,10 @@
     <title>Login</title>
     <link href="../resources/style/login.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body id="loginPage">
     <c:if test="${requestScope.loginFail}">
         <div class="error-message">
-            <p><c:out value="${param.errorMsg}"/></p>
+            <p><c:out value="${requestScope.error}"/></p>
         </div>
     </c:if>
     <main class="login-container">
@@ -33,6 +33,9 @@
                     </div>
                 </div>
                 <button type="submit">Se connecter</button>
+            </form>
+            <form method="post" action="${pageContext.request.contextPath}/init">
+                <button type="submit">Init database</button>
             </form>
         </div>
     </main>

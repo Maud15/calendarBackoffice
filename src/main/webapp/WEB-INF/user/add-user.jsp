@@ -71,6 +71,15 @@
                     </div>
                     <div class="form-field">
                         <div class="form-label">
+                            <label for="role">Role</label>
+                        </div>
+                        <div class="form-value">
+                            <%--TODO : change input type--%>
+                            <input type="text" name="role" id="role" value="${requestScope.user.role}">
+                        </div>
+                    </div>
+                    <%--<div class="form-field">
+                        <div class="form-label">
                             <label for="isAdmin">Administrateur</label>
                         </div>
                         <div class="form-value">
@@ -86,7 +95,7 @@
                             <input id="isSuperAdmin" type="checkbox" name="superAdmin"
                                    <c:if test="${sessionScope.user.superAdmin != true}">disabled</c:if>>
                         </div>
-                    </div>
+                    </div>--%>
                 </div>
                 <div>
                     <button type="reset" class="cancel">Vider les champs</button>

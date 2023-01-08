@@ -1,6 +1,5 @@
 package com.m2i.backoffice.dao;
 
-import com.m2i.backoffice.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -48,6 +47,7 @@ public interface Dao<T> {
             et.commit();
             isSuccess = true;
         } catch (Exception e) {
+
             e.printStackTrace();
             if(et.isActive()) {et.rollback();}
         } finally {
@@ -75,7 +75,7 @@ public interface Dao<T> {
         return isSuccess;
     }
 
-    Optional<User> get(Long id);
+    Optional<T> get(Long id);
 
     void delete(Long id);
 }
