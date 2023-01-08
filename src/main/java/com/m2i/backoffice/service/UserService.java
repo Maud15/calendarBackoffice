@@ -3,8 +3,10 @@ package com.m2i.backoffice.service;
 import com.m2i.backoffice.dao.RoleDao;
 import com.m2i.backoffice.dao.UserDao;
 import com.m2i.backoffice.model.*;
+import com.m2i.backoffice.service.exception.InvalidPasswordException;
 import com.m2i.backoffice.service.exception.UnknownUserException;
 import com.m2i.backoffice.service.exception.UnknownValueException;
+import com.m2i.backoffice.service.exception.UserAlreadyExistsException;
 
 import java.util.*;
 
@@ -20,15 +22,20 @@ public class UserService {
         return USER_DAO.getAll();
     }
 
-    public Optional<User> create(String pseudo, String email, String password, String firstname, String lastname, String cityName, String roleName /*List<Role> roleList, List<UserCalendarRights> calendarRightsList*/) {
-        try {
-            Role role = getRoleByName(roleName);
-            User newUser = new User(pseudo, email, password, firstname, lastname, null, List.of(role)/* calendarRightsList*/);
-            return Optional.of(USER_DAO.create(newUser));
-        } catch(Exception e) {
-            e.printStackTrace();
+    public Optional<User> create(String pseudo, String email, String password, String firstname, String lastname, String cityName, String roleName /*List<Role> roleList, List<UserCalendarRights> calendarRightsList*/) throws UserAlreadyExistsException, UnknownValueException, InvalidPasswordException {
+        if(isValidPassword(password)) {
+            if(USER_DAO.getByPseudo(pseudo).isPresent()) {
+                throw new UserAlreadyExistsException("pseudo",pseudo);
+            } else if(USER_DAO.getByEmail(email).isPresent()) {
+                throw new UserAlreadyExistsException("email",email);
+            } else {
+                Role role = getRoleByName(roleName);
+                User newUser = new User(pseudo, email, password, firstname, lastname, null, List.of(role)/* calendarRightsList*/);
+                return Optional.of(USER_DAO.create(newUser));
+            }
+        } else {
+            throw new InvalidPasswordException();
         }
-        return Optional.empty();
     }
 
     public boolean update(Long id, String pseudo, String email, String firstname, String lastname, String cityName, String roleName) {
@@ -98,5 +105,25 @@ public class UserService {
             return optRole.get();
         }
         throw new UnknownValueException("Role", roleName);
+    }
+
+    private boolean isValidPassword(String password) {
+        int uppercaseCounter =0;
+        int lowercaseCounter =0;
+        int digitCounter =0;
+        int specialCounter =0;
+        for (int i=0; i < password.length(); i++ ) {
+            char c = password.charAt(i);
+            if(Character.isUpperCase(c))
+                uppercaseCounter++;
+            else if(Character.isLowerCase(c))
+                lowercaseCounter++;
+            else if(Character.isDigit(c))
+                digitCounter++;
+            if(c>=33&&c<=46||c==64){
+                specialCounter++;
+            }
+        }
+        return password.length() > 7 && uppercaseCounter > 0 && lowercaseCounter > 0 && digitCounter > 0;
     }
 }

@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
         String password = req.getParameter("password");
 
         try {
-            Optional<User> optUser = new UserDao().getByName(username);
+            Optional<User> optUser = new UserDao().getByPseudo(username);
             if(optUser.isPresent()) {
                 User user = optUser.get();
                 //TODO crypt password

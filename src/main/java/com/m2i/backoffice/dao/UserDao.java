@@ -56,13 +56,27 @@ public class UserDao implements Dao<User>{
         }
     }
 
-    public Optional<User> getByName(String username) {
+    public Optional<User> getByPseudo(String username) {
         Optional<User> optUser = Optional.empty();
         EntityManager em = ConnectionManager.getEntityManager();
         try {
             String usernameQuery = "from User where pseudo = :username";
             optUser = Optional.of(em.createQuery(usernameQuery, User.class)
                     .setParameter("username", username)
+                    .getSingleResult());
+        } catch(NoResultException e) {
+            e.printStackTrace();
+        }
+        return optUser;
+    }
+
+    public Optional<User> getByEmail(String email) {
+        Optional<User> optUser = Optional.empty();
+        EntityManager em = ConnectionManager.getEntityManager();
+        try {
+            String emailQuery = "from User where email = :email";
+            optUser = Optional.of(em.createQuery(emailQuery, User.class)
+                    .setParameter("email", email)
                     .getSingleResult());
         } catch(NoResultException e) {
             e.printStackTrace();

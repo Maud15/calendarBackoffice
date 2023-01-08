@@ -18,7 +18,6 @@ public class ListUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         UserDao userDao = new UserDao();
         System.out.println("Tous les utilisateurs");
         List<User> usersList = userDao.getAll();
