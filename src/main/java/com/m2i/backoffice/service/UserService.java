@@ -3,10 +3,7 @@ package com.m2i.backoffice.service;
 import com.m2i.backoffice.dao.RoleDao;
 import com.m2i.backoffice.dao.UserDao;
 import com.m2i.backoffice.model.*;
-import com.m2i.backoffice.service.exception.InvalidPasswordException;
-import com.m2i.backoffice.service.exception.UnknownUserException;
-import com.m2i.backoffice.service.exception.UnknownValueException;
-import com.m2i.backoffice.service.exception.UserAlreadyExistsException;
+import com.m2i.backoffice.service.exception.*;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.*;
@@ -41,7 +38,7 @@ public class UserService {
         }
     }
 
-    public boolean update(Long id, String pseudo, String email, String firstname, String lastname, String cityName, String roleName) {
+    public boolean update(String connectedUserRole, Long id, String pseudo, String email, String firstname, String lastname, String cityName, String roleName) {
         try {
             Optional<User> optUser = USER_DAO.get(id, User.class);
             if(optUser.isPresent()) {
@@ -52,21 +49,17 @@ public class UserService {
                 user.setLastname(lastname);
                 user.setCity(null);
 
-                List<Role> newRoleList = new ArrayList<>();
-                newRoleList.add(getRoleByName(roleName));
-
-                boolean userUpdatedIsSuperAdmin = user.getRoleList().stream()
-                        .filter(role -> role.getName() == RoleEnum.ROLE_SUPER_ADMIN).toList().size() > 0;
-                boolean newRoleIsSuperAdmin = Objects.equals(roleName, RoleEnum.ROLE_SUPER_ADMIN.name());
-                if (userUpdatedIsSuperAdmin || newRoleIsSuperAdmin) {
-                    //TODO
-                    /*if (currentUser.isSuperAdmin()) {
-                        user.setRoleList(newRoleList);
-                    } else {
+                // Control role change
+                List<Role> userUpdatedCurrentRoleList = user.getRoleList();
+                List<Role> userUpdatedNewRoleList = new ArrayList<>();
+                userUpdatedNewRoleList.add(getRoleByName(roleName));
+                if(!userUpdatedNewRoleList.equals(userUpdatedCurrentRoleList)) {
+                    boolean newRoleIsSuperAdmin = Objects.equals(roleName, RoleEnum.ROLE_SUPER_ADMIN.name());
+                    if ((user.isSuperAdmin() || newRoleIsSuperAdmin) && !isSuperAdmin(connectedUserRole)) {
                         throw new UnauthorizedException("Only super-administrators are allowed to set or remove super-administrators role");
-                    }*/
-                } else {
-                    user.setRoleList(newRoleList);
+                    } else {
+                        user.setRoleList(userUpdatedNewRoleList);
+                    }
                 }
                 return USER_DAO.update(user);
             }
@@ -76,30 +69,19 @@ public class UserService {
         return false;
     }
 
-    public boolean delete(Long id) {
-        try {
-            Optional<User> optUser = USER_DAO.get(id, User.class);
-            if (optUser.isPresent()) {
-                User user = optUser.get();
-                boolean userDeletedIsSuperAdmin = user.getRoleList().stream()
-                        .filter(role -> role.getName() == RoleEnum.ROLE_SUPER_ADMIN).toList().size() > 0;
-                if (userDeletedIsSuperAdmin) {
-                    //TODO
-                    /*if (currentUser.isSuperAdmin()) {
-                        return USER_DAO.delete(id, User.class);
-                    } else {
-                        throw new UnauthorizedException("Only super-administrators are allowed to delete super-administrators");
-                    }*/
-                } else {
-                    return USER_DAO.delete(id, User.class);
-                }
+    public boolean delete(String connectedUserRole, Long id) throws UnauthorizedException, UnknownUserException {
+        Optional<User> optUser = USER_DAO.get(id, User.class);
+        if (optUser.isEmpty()) {
+            throw new UnknownUserException();
+        } else {
+            User user = optUser.get();
+            // Control role of deletedUser and role of connected User
+            if (user.isSuperAdmin() && !isSuperAdmin(connectedUserRole)) {
+                throw new UnauthorizedException("You are not allowed to delete super-administrators");
             } else {
-                throw new UnknownUserException();
+                return USER_DAO.delete(id, User.class);
             }
-        } catch(Exception e) {
-            e.printStackTrace();
         }
-        return false;
     }
 
     public Role getRoleByName(String roleName) throws UnknownValueException {
@@ -114,7 +96,7 @@ public class UserService {
         int uppercaseCounter =0;
         int lowercaseCounter =0;
         int digitCounter =0;
-        int specialCounter =0;
+//        int specialCounter =0;
         for (int i=0; i < password.length(); i++ ) {
             char c = password.charAt(i);
             if(Character.isUpperCase(c))
@@ -123,10 +105,14 @@ public class UserService {
                 lowercaseCounter++;
             else if(Character.isDigit(c))
                 digitCounter++;
-            if(c>=33&&c<=46||c==64){
+            /*if(c>=33&&c<=46||c==64){
                 specialCounter++;
-            }
+            }*/
         }
         return password.length() > 7 && uppercaseCounter > 0 && lowercaseCounter > 0 && digitCounter > 0;
+    }
+
+    private boolean isSuperAdmin(String roleName) {
+        return Objects.equals(roleName, RoleEnum.ROLE_SUPER_ADMIN.name());
     }
 }
