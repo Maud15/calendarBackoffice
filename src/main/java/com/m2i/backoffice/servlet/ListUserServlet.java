@@ -19,11 +19,7 @@ public class ListUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDao userDao = new UserDao();
-        System.out.println("Tous les utilisateurs");
         List<User> usersList = userDao.getAll();
-        for (User user: usersList ) {
-            System.out.println(user.getPseudo());
-        }
         req.setAttribute("usersList", usersList);
         req.getRequestDispatcher("/WEB-INF/user/list-user.jsp").forward(req, resp);
     }
