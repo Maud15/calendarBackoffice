@@ -21,11 +21,11 @@ public class Event {
     @Column(name = "end-date", nullable = false)
     private LocalDate endDate;
 
-    @Column (name = "is_full_day", nullable = false)
-    private boolean isFullDay;
+    @Column (name = "full_day", nullable = false)
+    private boolean fullDay;
 
-    @Column (nullable = false)
-    private Long idCalendar;
+    @Column (name = "calendar_id", nullable = false)
+    private Long calendarId;
 
 
     public Long getId() {
@@ -54,5 +54,19 @@ public class Event {
     }
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public boolean isFullDay() {
+        return fullDay;
+    }
+    public void setFullDay(boolean fullDay) {
+        this.fullDay = fullDay;
+    }
+
+    public Long getCalendarId() {
+        return calendarId;
+    }
+    public void setCalendarId(Long calendarId) {
+        this.calendarId = calendarId;
     }
 }

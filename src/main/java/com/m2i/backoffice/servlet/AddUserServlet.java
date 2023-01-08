@@ -23,7 +23,7 @@ public class AddUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        if(session.getAttribute("role") == RoleEnum.ROLE_SUPER_ADMIN) {
+        if(session.getAttribute("role") == RoleEnum.ROLE_SUPER_ADMIN.name()) {
             req.getRequestDispatcher("/WEB-INF/user/add-user.jsp").forward(req,resp);
         } else {
             resp.sendRedirect(req.getContextPath() + "/users");

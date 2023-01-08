@@ -13,8 +13,8 @@ public class Calendar {
 
 //    private String name;
 
-    @Column(name = "is_main_calendar", nullable = false)
-    private boolean isMainCalendar;
+    @Column(name = "main_calendar", nullable = false)
+    private boolean mainCalendar;
 
     @OneToMany(mappedBy = "calendar")
     private List<UserCalendarRights> calendarUserRightsList;
@@ -27,12 +27,12 @@ public class Calendar {
     public Calendar(Long id){
         this.id = id;
     }
-    public Calendar(boolean isMainCalendar){
-        this.isMainCalendar = isMainCalendar;
+    public Calendar(boolean mainCalendar){
+        this.mainCalendar = mainCalendar;
     }
-    public Calendar(Long id,  boolean isMainCalendar){
+    public Calendar(Long id,  boolean mainCalendar){
         this.id = id;
-        this.isMainCalendar = isMainCalendar;
+        this.mainCalendar = mainCalendar;
     }
 
     public Long getId() {
@@ -43,10 +43,10 @@ public class Calendar {
     }
 
     public boolean isMainCalendar() {
-        return isMainCalendar;
+        return mainCalendar;
     }
     public void setMainCalendar(boolean mainCalendar) {
-        isMainCalendar = mainCalendar;
+        this.mainCalendar = mainCalendar;
     }
 
     public List<UserCalendarRights> getCalendarUserRightsList() {
