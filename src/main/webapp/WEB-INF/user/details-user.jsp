@@ -6,7 +6,6 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>User details</title>
     <script defer type="text/javascript" src="../../resources/script/userDetails.js"></script>
 </head>
 <body>

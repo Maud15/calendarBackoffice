@@ -4,6 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 
 <head>
+    <title>Klend'art</title>
+    <link rel="icon" type="image/x-icon" href="../resources/assets/favicon.ico">
     <link href="../resources/style/header.css" rel="stylesheet" type="text/css">
     <script defer type="text/javascript" src="../resources/script/header.js"></script>
 </head>

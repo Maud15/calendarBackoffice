@@ -3,7 +3,6 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Ajouter un utilisateur</title>
 </head>
 <body>
     <jsp:include page="../header.jsp">

@@ -117,7 +117,7 @@ h1 {
     display: block;
     width: fit-content;
     height: fit-content;
-    margin: 1vh 4vw;
+    /*margin: 1vh 4vw;*/
     padding-right: 14px;
     background: var(--main-color-lighter);
     color: var(--main-color-darkest);

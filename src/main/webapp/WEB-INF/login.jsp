@@ -2,7 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Login</title>
+    <title>Admin</title>
+    <link rel="icon" type="image/x-icon" href="../resources/assets/favicon.ico">
     <link href="../resources/style/login.css" rel="stylesheet" type="text/css">
 </head>
 <body id="loginPage">
@@ -11,6 +12,9 @@
             <p><c:out value="${requestScope.error}"/></p>
         </div>
     </c:if>
+    <form method="post" action="${pageContext.request.contextPath}/init">
+        <button type="submit">Init database</button>
+    </form>
     <main class="login-container">
         <h1>Klend'art</h1>
 
@@ -33,9 +37,6 @@
                     </div>
                 </div>
                 <button type="submit">Se connecter</button>
-            </form>
-            <form method="post" action="${pageContext.request.contextPath}/init">
-                <button type="submit">Init database</button>
             </form>
         </div>
     </main>
