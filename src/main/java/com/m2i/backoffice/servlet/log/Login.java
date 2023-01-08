@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
                     HttpSession session = req.getSession(true);
                     session.setAttribute("username", username);
                     Optional<Role> optUserRole = user.getRoleList().stream().findFirst();
-                    optUserRole.ifPresent(role -> session.setAttribute("role", role.getName()));
+                    optUserRole.ifPresent(role -> session.setAttribute("role", role.getName().name()));
                     session.setMaxInactiveInterval(30 * 60);
 
                     Cookie cookieUser = new Cookie("username", username);
