@@ -7,6 +7,7 @@ import com.m2i.backoffice.servlet.ListUserServlet;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -35,8 +36,7 @@ public class Login extends HttpServlet {
             Optional<User> optUser = new UserDao().getByPseudo(username);
             if(optUser.isPresent()) {
                 User user = optUser.get();
-                //TODO crypt password
-                if (user.isAdminOrSuperAdmin() && user.getPassword().equals(password)) {
+                if (user.isAdminOrSuperAdmin() && BCrypt.checkpw(user.getPassword(), BCrypt.hashpw(password, user.getHashSalt()))) {
                     HttpSession session = req.getSession(true);
                     session.setAttribute("username", username);
                     Optional<Role> optUserRole = user.getRoleList().stream().findFirst();

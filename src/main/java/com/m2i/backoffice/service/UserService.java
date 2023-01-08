@@ -7,6 +7,7 @@ import com.m2i.backoffice.service.exception.InvalidPasswordException;
 import com.m2i.backoffice.service.exception.UnknownUserException;
 import com.m2i.backoffice.service.exception.UnknownValueException;
 import com.m2i.backoffice.service.exception.UserAlreadyExistsException;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.*;
 
@@ -30,7 +31,9 @@ public class UserService {
                 throw new UserAlreadyExistsException("email",email);
             } else {
                 Role role = getRoleByName(roleName);
-                User newUser = new User(pseudo, email, password, firstname, lastname, null, List.of(role)/* calendarRightsList*/);
+                String hashSalt = BCrypt.gensalt();
+                String hashedPassword = BCrypt.hashpw(password, hashSalt);
+                User newUser = new User(pseudo, email, hashedPassword, hashSalt, firstname, lastname, null, List.of(role)/* calendarRightsList*/);
                 return Optional.of(USER_DAO.create(newUser));
             }
         } else {

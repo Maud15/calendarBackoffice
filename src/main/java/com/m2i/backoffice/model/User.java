@@ -20,6 +20,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String hashSalt;
+
     private String firstname;
     private String lastname;
 
@@ -46,26 +49,28 @@ public class User {
         this.id = id;
     }
 
-    public User(String pseudo, String email, String password, String firstname, String lastname, City city, List<Role> roleList) {
+    public User(String pseudo, String email, String password, String hashSalt, String firstname, String lastname, City city, List<Role> roleList) {
         this.pseudo = pseudo;
         this.email = email;
         this.password = password;
+        this.hashSalt = hashSalt;
         this.firstname = firstname;
         this.lastname = lastname;
         this.city = city;
         this.roleList = roleList;
     }
-    public User(Long id, String pseudo, String email, String password, String firstname, String lastname, City city, List<Role> roleList, List<UserCalendarRights> calendarRightsList) {
+    /*public User(Long id, String pseudo, String email, String password, String hashSalt, String firstname, String lastname, City city, List<Role> roleList, List<UserCalendarRights> calendarRightsList) {
         this.id = id;
         this.pseudo = pseudo;
         this.email = email;
         this.password = password;
+        this.hashSalt = hashSalt;
         this.firstname = firstname;
         this.lastname = lastname;
         this.city = city;
         this.roleList = roleList;
         this.calendarRightsList = calendarRightsList;
-    }
+    }*/
 
     public boolean isAdminOrSuperAdmin() {
         return this.getRoleList().stream()
@@ -101,6 +106,13 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getHashSalt() {
+        return hashSalt;
+    }
+    public void setHashSalt(String hashSalt) {
+        this.hashSalt = hashSalt;
     }
 
     public String getFirstname() {
