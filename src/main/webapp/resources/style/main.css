@@ -41,27 +41,18 @@ button {
     position: relative;
     margin: 5px;
     padding: 4px 10px;
-    /*background: white;*/
-    /*color: var(--main-color-darkest);*/
-    /*border: 1px solid var(--main-color-darker);*/
-    /*background: var(--action-color);*/
     background: var(--main-color);
     color: white;
     border-width: 0 0 2px 2px;
     border-style: solid;
-    /*border-color: var(--action-color-darker);*/
     border-color: var(--main-color-darker);
     border-radius: 3px;
-    cursor: pointer;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     font-size: 1rem;
-    letter-spacing: 0.2px;
-    box-shadow: -1px 1px 3px -2px var(--main-color-darkest)
+    cursor: pointer;
+    box-shadow: -1px 1px 3px -2px var(--main-color-darkest);
 }
 button:hover {
     box-shadow: none;
-    /*border-color: var(--action-color);*/
     border-color: var(--main-color);
 }
 button.validate {
@@ -140,6 +131,9 @@ h1:first-letter {
     border-color: var(--main-color-darkest);
     border-style: solid;
     border-width: 0 0 2px 2px;
+}
+header h1 {
+    margin: 1vh 4vw;
 }
 
 h2 {

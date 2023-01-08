@@ -4,23 +4,19 @@
 header {
     display: flex;
     align-items: center;
-    background-color: hsl(var(--main-hue) 0% 95%);/*hsl(var(--main-hue) 65% 98%);*/
-    color: white;
+    background-color: hsl(var(--main-hue) 0% 95%);
     box-shadow: 1px 1px 6px -3px var(--main-color-darkest);
+}
+header:before {
+    position: relative;
+    left: 2vw;
+    color: var(--main-color-darker);
+    border-bottom: 2px solid var(--main-color-darker);
+    font-size: 1rem;
 }
 header.admin:before {
     content: 'Admin';
-    position: relative;
-    left: 2vw;
-    color: var(--main-color-darker);
-    border-bottom: 2px solid var(--main-color-darker);
-    font-size: 1rem;
 }
 header.super-admin:before {
     content: 'Super admin';
-    position: relative;
-    left: 2vw;
-    color: var(--main-color-darker);
-    border-bottom: 2px solid var(--main-color-darker);
-    font-size: 1rem;
 }
