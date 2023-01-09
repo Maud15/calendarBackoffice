@@ -44,8 +44,8 @@ public class UserDao implements Dao<User>{
         EntityTransaction et = em.getTransaction();
         try {
             et.begin();
-            Optional<User> optCustomer = Optional.of(em.find(User.class, id));
-            optCustomer.ifPresent(em::remove);
+            Optional<User> optUser = Optional.of(em.find(User.class, id));
+            optUser.ifPresent(em::remove);
             et.commit();
         } catch(Exception e) {
             System.out.println("Impossible de supprimer l'élément choisi");
@@ -64,8 +64,9 @@ public class UserDao implements Dao<User>{
             optUser = Optional.of(em.createQuery(usernameQuery, User.class)
                     .setParameter("username", username)
                     .getSingleResult());
-        } catch(NoResultException e) {
-            e.printStackTrace();
+        } catch(NoResultException ignored) {
+        } finally {
+            em.close();
         }
         return optUser;
     }
@@ -78,8 +79,9 @@ public class UserDao implements Dao<User>{
             optUser = Optional.of(em.createQuery(emailQuery, User.class)
                     .setParameter("email", email)
                     .getSingleResult());
-        } catch(NoResultException e) {
-            e.printStackTrace();
+        } catch(NoResultException ignored) {
+        } finally {
+            em.close();
         }
         return optUser;
     }

@@ -78,4 +78,13 @@ public interface Dao<T> {
     Optional<T> get(Long id);
 
     void delete(Long id);
+
+
+    static EntityManager createEntityManager() {
+        return ConnectionManager.getEntityManager();
+    }
+    default T createInTransaction(EntityManager em, T t) {
+        em.persist(t);
+        return t;
+    }
 }
