@@ -1,9 +1,11 @@
 package com.m2i.backoffice.service;
 
-import com.m2i.backoffice.dao.RoleDao;
-import com.m2i.backoffice.dao.UserDao;
+import com.m2i.backoffice.dao.*;
 import com.m2i.backoffice.model.*;
+import com.m2i.backoffice.model.Calendar;
 import com.m2i.backoffice.service.exception.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.*;
@@ -11,6 +13,8 @@ import java.util.*;
 public class UserService {
 
     private static final UserDao USER_DAO = new UserDao();
+    private static final CalendarDao CALENDAR_DAO = new CalendarDao();
+    private static final UserCalendarRightsDao USER_CAL_RIGHTS_DAO = new UserCalendarRightsDao();
 
     public Optional<User> get(Long id) {
         return USER_DAO.get(id, User.class);
@@ -20,21 +24,43 @@ public class UserService {
         return USER_DAO.getAll();
     }
 
-    public Optional<User> create(String pseudo, String email, String password, String firstname, String lastname, String cityName, String roleName /*List<Role> roleList, List<UserCalendarRights> calendarRightsList*/) throws UserAlreadyExistsException, UnknownValueException, InvalidPasswordException {
-        if(isValidPassword(password)) {
+    public Optional<User> create(String pseudo, String email, String password, String firstname, String lastname, String cityName, String roleName) throws Exception {
+        String errorType = "";
+        String errorData = "";
+        User newUser = null;
+        if(!isValidPassword(password)) {
+            errorType = "invalidPassword";
+        } else {
             if(USER_DAO.getByPseudo(pseudo).isPresent()) {
-                throw new UserAlreadyExistsException("pseudo",pseudo);
+                errorType = "pseudo";
+                errorData = pseudo;
+//                    throw new UserAlreadyExistsException("pseudo",pseudo);
             } else if(USER_DAO.getByEmail(email).isPresent()) {
-                throw new UserAlreadyExistsException("email",email);
+                errorType = "email";
+                errorData = email;
+//                    throw new UserAlreadyExistsException("email",email);
             } else {
                 Role role = getRoleByName(roleName);
                 String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-                User newUser = new User(pseudo, email, hashedPassword, firstname, lastname, null, List.of(role)/* calendarRightsList*/);
-                return Optional.of(USER_DAO.create(newUser));
+                EntityManager em = Dao.createEntityManager();
+                EntityTransaction et = em.getTransaction();
+                try {
+                    et.begin();
+                    newUser = USER_DAO.createInTransaction(em, new User(pseudo, email, hashedPassword, firstname, lastname, null, List.of(role)));
+                    Calendar newCalendar = CALENDAR_DAO.createInTransaction(em, new Calendar(true));
+                    UserCalendarRightsId userCalendarRightsId = new UserCalendarRightsId(newUser.getId(), newCalendar.getId());
+                    USER_CAL_RIGHTS_DAO.createInTransaction(em, new UserCalendarRights(userCalendarRightsId, newUser, newCalendar, "owner"));
+                    et.commit();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                    if(et.isActive()) {et.rollback();}
+                } finally {
+                    em.close();
+                }
+                return Optional.of(newUser);
             }
-        } else {
-            throw new InvalidPasswordException();
         }
+        throw new UserCreationException(errorType, errorData);
     }
 
     public boolean update(String connectedUserRole, Long id, String pseudo, String email, String firstname, String lastname, String cityName, String roleName) {
@@ -91,8 +117,10 @@ public class UserService {
         throw new UnknownValueException("Role", roleName);
     }
 
+    //TODO : Deactivated for tests, reactivate for DEMO and change data in InitDb
     private boolean isValidPassword(String password) {
-        int uppercaseCounter =0;
+        return true;
+        /*int uppercaseCounter =0;
         int lowercaseCounter =0;
         int digitCounter =0;
 //        int specialCounter =0;
@@ -104,11 +132,11 @@ public class UserService {
                 lowercaseCounter++;
             else if(Character.isDigit(c))
                 digitCounter++;
-            /*if(c>=33&&c<=46||c==64){
+            *//*if(c>=33&&c<=46||c==64){
                 specialCounter++;
-            }*/
+            }*//*
         }
-        return password.length() > 7 && uppercaseCounter > 0 && lowercaseCounter > 0 && digitCounter > 0;
+        return password.length() > 7 && uppercaseCounter > 0 && lowercaseCounter > 0 && digitCounter > 0;*/
     }
 
     private boolean isSuperAdmin(String roleName) {

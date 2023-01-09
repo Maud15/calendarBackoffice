@@ -4,9 +4,8 @@ import com.m2i.backoffice.model.RoleEnum;
 import com.m2i.backoffice.model.User;
 import com.m2i.backoffice.service.UserService;
 
-import com.m2i.backoffice.service.exception.InvalidPasswordException;
 import com.m2i.backoffice.service.exception.UnknownValueException;
-import com.m2i.backoffice.service.exception.UserAlreadyExistsException;
+import com.m2i.backoffice.service.exception.UserCreationException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,7 +20,7 @@ import java.util.Optional;
 public class AddUserServlet extends HttpServlet {
 
     public static final String URL = "/users/add";
-    private static final UserService service = new UserService();
+    private static final UserService USER_SERV = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +35,7 @@ public class AddUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            Optional<User> optNewUser = service.create(
+            Optional<User> optNewUser = USER_SERV.create(
                     req.getParameter("pseudo"),
                     req.getParameter("email").toLowerCase(),
                     req.getParameter("password"),
@@ -46,17 +45,25 @@ public class AddUserServlet extends HttpServlet {
                     req.getParameter("role")
             );
             if(optNewUser.isPresent()) {
-                req.setAttribute("info","Utilisateur "+ optNewUser.get().getPseudo() +" créé avec succès");
+                User newUser = optNewUser.get();
+                req.setAttribute("info","Utilisateur "+ newUser.getPseudo() +" créé avec succès");
             } else {
+                System.out.println("Error while creating user");
                 req.setAttribute("error", "Impossible de créer l'utilisateur");
             }
-        } catch (UserAlreadyExistsException e) {
-            req.setAttribute("error", "Impossible de créer l'utilisateur : " + e.getDataName() + " : " + e.getData() + "existe déjà");
-        } catch (UnknownValueException e) {
-            req.setAttribute("error", "Impossible de créer l'utilisateur : La valeur " + e.getData() + " est incorrecte pour le champ " + e.getDataName());
-        } catch(InvalidPasswordException e) {
-            req.setAttribute("error", "Le mot de passe doit contenir au moins 8 caratères, dont 1 minuscule, 1 majuscule et 1 chiffre");
         }
-    req.getRequestDispatcher("/WEB-INF/user/add-user.jsp").forward(req,resp);
+        catch(UserCreationException e) {
+            e.printStackTrace();
+            System.out.println(e.getServerMessage());
+            req.setAttribute("error", e.getUiMessage());
+        }
+        catch (UnknownValueException e) {
+            e.printStackTrace();
+            req.setAttribute("error", "Impossible de créer l'utilisateur : La valeur " + e.getData() + " est incorrecte pour le champ " + e.getDataName());
+        } catch(Exception e) {
+            e.printStackTrace();
+            req.setAttribute("error", "Impossible de créer l'utilisateur");
+        }
+        req.getRequestDispatcher("/WEB-INF/user/add-user.jsp").forward(req,resp);
     }
 }

@@ -74,7 +74,7 @@
                         </div>
                         <div class="form-value">
                             <%--TODO : change input type--%>
-                            <input type="text" name="role" id="role" value="${requestScope.user.role}">
+                            <input type="text" name="role" id="role" value="ROLE_USER">
                         </div>
                     </div>
                     <%--<div class="form-field">

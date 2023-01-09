@@ -7,11 +7,12 @@
     <link href="../resources/style/login.css" rel="stylesheet" type="text/css">
 </head>
 <body id="loginPage">
-    <c:if test="${requestScope.loginFail}">
-        <div class="error-message">
-            <p><c:out value="${requestScope.error}"/></p>
-        </div>
-    </c:if>
+
+<c:if test="${not empty requestScope.error}">
+    <div class="error-message">
+        <p><c:out value="${requestScope.error}"/></p>
+    </div>
+</c:if>
     <form method="post" action="${pageContext.request.contextPath}/init">
         <button type="submit">Init database</button>
     </form>
