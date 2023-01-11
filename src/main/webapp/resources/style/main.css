@@ -1,0 +1,175 @@
+@import url(form.css);
+@import url(font.css);
+
+:root {
+    --main-hue:195deg;/*15deg*/
+    --main-color-darkest: hsl(var(--main-hue) 50% 20%);
+    --main-color-darker: hsl(var(--main-hue) 80% 25%);
+    --main-color: hsl(var(--main-hue) 50% 35%);
+    --main-color-lighter: hsl(var(--main-hue) 60% 80%);
+    --main-color-lightest: hsl(var(--main-hue) 85% 95%);
+
+    --userInfo-color: hsl( calc(var(--main-hue) + 190deg) 70% 35%);
+/*    --action-color-darker: hsl(195deg 50% 20%);
+    --action-color: hsl(195deg 50% 35%);*/
+
+    --alert-hue: 0deg;
+    --alert-color-darker: hsl(var(--alert-hue) 82% 28%);
+    --alert-color: hsl(0deg 46% 46%);
+    --alert-color-faded: hsl(var(--alert-hue) 100% 95%);
+    --info-color: #205480;
+    --info-color-faded: #e6f3ff;
+
+    --side-margin: 8vw;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 1rem;
+    height: 100%;
+}
+.hidden {
+    display: none;
+}
+main {
+    position: relative;
+    margin: 2vh 6vw;
+}
+
+button {
+    position: relative;
+    margin: 5px;
+    padding: 4px 10px;
+    background: var(--main-color);
+    color: white;
+    border-width: 0 0 2px 2px;
+    border-style: solid;
+    border-color: var(--main-color-darker);
+    border-radius: 3px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: -1px 1px 3px -2px var(--main-color-darkest);
+}
+button:hover {
+    box-shadow: none;
+    border-color: var(--main-color);
+}
+button.validate {
+    color: white;
+    background: green;
+    border-color: darkgreen;
+}
+button.validate:hover {
+    border-color: green;
+}
+button.cancel {
+    color: white;
+    background: lightslategray;
+    border-color: darkslategray;
+}
+button.cancel:hover {
+    border-color: lightslategray;
+}
+button.alert {
+    color: white;
+    background: var(--alert-color);
+    border-color: var(--alert-color-darker);
+}
+button.alert:hover {
+    border-color: var(--alert-color);
+}
+button.logout {
+    display: block;
+    border: none;
+    margin: auto 2vw auto auto;
+    background: none;
+    color: dimgray;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+
+.content-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.content-header>* {
+    margin: 2vh 1vw;
+}
+
+.main-content {
+    margin: 1vh 1vw;
+}
+
+h1 {
+    position: relative;
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    /*margin: 1vh 4vw;*/
+    padding-right: 14px;
+    background: var(--main-color-lighter);
+    color: var(--main-color-darkest);
+    border-radius: 20px;
+    border-width: 0 0 2px 0;
+    border-style: solid;
+    border-color: var(--main-color-darkest);
+    font-family: monospace;
+    font-variant-caps: petite-caps;
+    letter-spacing: 4px;
+}
+h1:first-letter {
+    font-size: 1.3em;
+    border-radius: 20px 0 0 20px;
+    background: var(--main-color);
+    color: white;
+    margin-right: 8px;
+    padding: 0 4px 0 14px;
+    vertical-align: sub;
+    border-color: var(--main-color-darkest);
+    border-style: solid;
+    border-width: 0 0 2px 2px;
+}
+header h1 {
+    margin: 1vh 4vw;
+}
+
+h2 {
+    color: var(--main-color-darker);
+}
+
+/* ---- MESSAGES ---- */
+
+.error-message p:before {
+    content:"ERREUR : ";
+}
+
+.error-message {
+    background: var(--alert-color-faded);
+    color: var(--alert-color);
+    border: 1px solid var(--alert-color);
+    margin: 12px var(--side-margin);
+    padding: 0 4vw;
+}
+.info-message p:before {
+    content:"INFO : ";
+}
+
+.info-message {
+    background: var(--info-color-faded);
+    color: var(--info-color);
+    border: 1px solid var(--info-color);
+    margin: 12px var(--side-margin);
+    padding: 0 4vw;
+}
+
+
+
+
+/* ---- specific ---- */
+.userPseudoTag {
+    text-decoration: var(--userInfo-color);
+    color: var(--userInfo-color);
+}

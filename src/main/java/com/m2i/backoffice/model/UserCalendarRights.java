@@ -2,23 +2,33 @@ package com.m2i.backoffice.model;
 
 import jakarta.persistence.*;
 
-@Entity
+@Entity (name = "user_calendar_rights")
 public class UserCalendarRights {
 
-    @Id
+    @EmbeddedId
+    private UserCalendarRightsId userCalendarRightsId;
+
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @MapsId("userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Id
     @ManyToOne
-    @JoinColumn(name = "idCalendar")
+    @MapsId("calendarId")
+    @JoinColumn(name = "calendar_id")
     private Calendar calendar;
 
     @Column(nullable = false)
     private String rights;
 
+    public UserCalendarRights(){}
 
+    public UserCalendarRights(UserCalendarRightsId userCalendarRightsId, User user, Calendar calendar, String rights) {
+        this.userCalendarRightsId = userCalendarRightsId;
+        this.rights = rights;
+        this.calendar = calendar;
+        this.user = user;
+    }
 
     public User getUser() {
         return user;

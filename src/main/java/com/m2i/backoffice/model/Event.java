@@ -3,27 +3,29 @@ package com.m2i.backoffice.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idEvent")
+    @Column(name = "event_id")
     private Long id;
 
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(nullable = false)
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
-    @ManyToMany
-    private List<Calendar> calendarsList;
+    @Column (name = "full_day", nullable = false)
+    private boolean fullDay;
+
+    @Column (name = "calendar_id", nullable = false)
+    private Long calendarId;
 
 
     public Long getId() {
@@ -54,10 +56,17 @@ public class Event {
         this.endDate = endDate;
     }
 
-    public List<Calendar> getCalendarsList() {
-        return calendarsList;
+    public boolean isFullDay() {
+        return fullDay;
     }
-    public void setCalendarsList(List<Calendar> calendarsList) {
-        this.calendarsList = calendarsList;
+    public void setFullDay(boolean fullDay) {
+        this.fullDay = fullDay;
+    }
+
+    public Long getCalendarId() {
+        return calendarId;
+    }
+    public void setCalendarId(Long calendarId) {
+        this.calendarId = calendarId;
     }
 }

@@ -1,33 +1,119 @@
-<%--Created by : User: maud_  --  Date: 08/12/2022  --  Time: 11:41--%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Ajouter un utilisateur</title>
 </head>
 <body>
-<%--    <jsp:include page="../header.jsp"><jsp:param name="errorMsg" value="${error}"/></jsp:include>--%>
+    <jsp:include page="../header.jsp">
+        <jsp:param name="errorMsg" value="${requestScope.error}"/>
+        <jsp:param name="info" value="${requestScope.info}"/>
+        <jsp:param name="currentPage" value="addUser"/>
+    </jsp:include>
 
-<form action="${pageContext.request.contextPath}/users/add" method="post">
-<%-- Todo Maud : voir comment utiliser plutot une grid ici pour avoir un bel affichage --%>
-    <%--<div class="formLabels">
-        <label for="userPseudo"></label>
-    </div>--%>
-    <div class="formInputs">
-        <label for="userEmail">Email</label>
-        <input id="userEmail" type="text" name="userEmail">
-        <label for="userPseudo">Pseudo</label>
-        <input id="userPseudo" type="text" name="userPseudo">
-        <label for="userPassword">Mot de passe</label>
-        <input id="userPassword" type="password" name="userPassword">
-        <label for="isAdmin">Est admin ? (true, false)</label>
-        <input id="isAdmin" type="text" name="isAdmin">
-    </div>
+    <main>
+        <div class="content-header">
+            <h2>Ajouter un utilisateur</h2>
+        </div>
 
-    <button>Ajouter</button>
-</form>
+        <div class="main-content">
+            <form action="${pageContext.request.contextPath}/users/add" method="post">
 
+                <div class="form-fields">
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="pseudo">Identifiant</label>
+                        </div>
+                        <div class="form-value">
+                            <input id="pseudo" type="text" name="pseudo">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="lastname">Nom</label>
+                        </div>
+                        <div class="form-value">
+                            <input id="lastname" type="text" name="lastname">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="form-value">
+                            <input id="email" type="email" name="email">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="firstname">Prénom</label>
+                        </div>
+                        <div class="form-value">
+                            <input id="firstname" type="text" name="firstname">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="password">Mot de passe</label>
+                        </div>
+                        <div class="form-value">
+                            <input id="password" type="password" name="password">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="city">Ville</label>
+                        </div>
+                        <div class="form-value">
+                            <input id="city" type="text" name="city">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="role">Role</label>
+                        </div>
+                        <div class="form-value">
+                            <%--TODO : change input type--%>
+<%--                            <input list="role" name="role" >--%>
+<%--                                <datalist id="role">--%>
+<%--                                    <option value="ROLE_USER"> User</option>--%>
+<%--                                    <option value="ROLE_ADMIN"> Admin</option>--%>
+<%--                                    <option value="ROLE_SUPER_ADMIN">Super Admin</option>--%>
+<%--                                </datalist>--%>
+                            <select class="combo" name="role" id="role">
+                                <option value="ROLE_USER"> Utilisateur</option>
+                                <option value="ROLE_ADMIN"> Administrateur</option>
+                                <option value="ROLE_SUPER_ADMIN">Super Administrateur</option>
+                            </select>
+                        </div>
+                    </div>
+                    <%--<div class="form-field">
+                        <div class="form-label">
+                            <label for="isAdmin">Administrateur</label>
+                        </div>
+                        <div class="form-value">
+                            <input id="isAdmin" type="checkbox" name="admin">
+                        </div>
+                    </div>
+                    <div class="placeholder"></div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="isSuperAdmin">Super administrateur</label>
+                        </div>
+                        <div class="form-value">
+                            <input id="isSuperAdmin" type="checkbox" name="superAdmin"
+                                   <c:if test="${sessionScope.user.superAdmin != true}">disabled</c:if>>
+                        </div>
+                    </div>--%>
+                </div>
+                <div>
+                    <button type="reset" class="cancel">Vider les champs</button>
+                    <button type="submit" class="validate">Ajouter</button>
+                </div>
+            </form>
+        </div>
+
+    </main>
 
 </body>
 </html>
