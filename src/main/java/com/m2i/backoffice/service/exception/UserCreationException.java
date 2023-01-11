@@ -16,15 +16,20 @@ public class UserCreationException extends Exception {
             case "pseudo" -> "L'identifiant " + errorData + " n'est pas disponible";
             case "email" -> "Il existe déjà un compte avec l'email : " + errorData;
             case "invalidPassword" -> "Le mot de passe doit contenir au moins 8 caratères, dont 1 minuscule, 1 majuscule et 1 chiffre";
+            case "invalidPseudo" -> "Le pseudo doit faire entre 2 et 20 caractères";
+            case "invalidEmail" -> "Le format de l'adresse email n'est pas valide";
             default -> "";
         };
     }
 
     private String getServerDetailsMessage(String errorType, String errorData) {
+        String endSentenceRequirements = " does not meet the requirements";
         return switch (errorType) {
-            case "pseudo" -> "Pseudo " + errorData + " is not available";
-            case "email" -> "There is already an account with this email";
-            case "invalidPassword" -> "Password does not meet the requirements";
+            case "pseudo" -> "Pseudo not available : " + errorData;
+            case "email" -> "Email already registered";
+            case "invalidPassword" -> "Password" + endSentenceRequirements;
+            case "invalidPseudo" -> "Pseudo " + errorData + endSentenceRequirements;
+            case "invalidEmail" -> "Email " + errorData + endSentenceRequirements;
             default -> "unknown error";
         };
     }

@@ -19,9 +19,9 @@ public class Calendar {
     @OneToMany(mappedBy = "calendar")
     private List<UserCalendarRights> calendarUserRightsList;
 
-    @OneToMany
-    @JoinColumn(referencedColumnName = "calendar_id")
+    @OneToMany(mappedBy = "calendar")
     private List<Event> eventsList;
+
 
     public Calendar(){}
     public Calendar(Long id){
