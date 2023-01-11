@@ -15,10 +15,10 @@ public class Event {
     @Column(nullable = false)
     private String title;
 
-    @Column(name = "start-date", nullable = false)
+    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "end-date", nullable = false)
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
     @Column (name = "full_day", nullable = false)

@@ -20,7 +20,7 @@ public class Calendar {
     private List<UserCalendarRights> calendarUserRightsList;
 
     @OneToMany
-    @JoinColumn(referencedColumnName = "calendar_id")
+    @JoinColumn(name="event_id", referencedColumnName = "calendar_id")
     private List<Event> eventsList;
 
     public Calendar(){}
