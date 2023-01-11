@@ -28,7 +28,13 @@ public class UserService {
         String errorType = "";
         String errorData = "";
         User newUser = null;
-        if(!isValidPassword(password)) {
+        if(!isValidPseudo(pseudo)) {
+            errorType = "invalidPseudo";
+            errorData = pseudo;
+        } else if(!isValidEmail(email)) {
+            errorType = "invalidEmail";
+            errorData = email;
+        } else if(!isValidPassword(password)) {
             errorType = "invalidPassword";
         } else {
             if(USER_DAO.getByPseudo(pseudo).isPresent()) {
@@ -137,6 +143,15 @@ public class UserService {
             }*//*
         }
         return password.length() > 7 && uppercaseCounter > 0 && lowercaseCounter > 0 && digitCounter > 0;*/
+    }
+    private boolean isValidPseudo(String pseudo) {
+        int minLength = 2;
+        int maxLength = 20;
+        return !( pseudo.length() < minLength || pseudo.length() > maxLength );
+    }
+    private boolean isValidEmail(String email) {
+        int minLength = 6;
+        return ( email.length() >= minLength && email.indexOf('@') >=0 );
     }
 
     private boolean isSuperAdmin(String roleName) {
