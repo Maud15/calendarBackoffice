@@ -58,9 +58,14 @@ input:focus-visible {
 .aria-disabled .form-buttons {
     display: none;
 }
+
 .aria-disabled input[type] {
     box-shadow: none;
 }
+.aria-disabled .form-value .form-new {
+    display: none;
+}
+
 /* ---- INPUT ---- */
 .form-input:before {
     vertical-align: middle;
@@ -96,3 +101,8 @@ input:focus-visible {
 .aria-disabled input[type] {
     box-shadow: none;
 }
+
+.aria-disabled .form-value select{
+    display: none;
+}
+

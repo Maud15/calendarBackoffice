@@ -14,10 +14,13 @@
         <jsp:param name="info" value="${requestScope.info}"/>
     </jsp:include>
     <main>
+        <c:set var="role_userToModify" scope="session" value="${requestScope.user.roleList.stream().findFirst().get().getName()}"/>
+        <c:set var="role_current_user" scope="session" value="${sessionScope.role}"/>
         <div id="userDetailsHeader" class="content-header">
             <h2>Profil utilisateur <span class="userPseudoTag">${requestScope.user.getPseudo()}</span></h2>
             <button id="editUser" type="button" >Edit</button>
         </div>
+
 
         <div class="main-content">
 
@@ -53,7 +56,7 @@
                             <label for="firstname">Prénom</label>
                         </div>
                         <div class="form-value">
-                            <input type="text" name="firstname" id="firstname" value="${requestScope.user.firstname}" disabled>
+                            <input type="text" name="firstname" id="firstname" selected="${requestScope.user.firstname}" disabled>
                         </div>
                     </div>
                     <div class="form-field">
@@ -70,7 +73,49 @@
                         </div>
                         <div class="form-value">
                             <%--TODO : change input type--%>
-                            <input type="text" name="role" id="role" value="${requestScope.user.roleList.stream().findFirst().get().getName()}" disabled>
+
+<%--                                <input type="text" name="role"  value="${requestScope.user.roleList.stream().findFirst().get().getName()}" disabled>--%>
+
+                            <c:if test="${role_current_user == 'ROLE_ADMIN'}" >
+                                <c:if test="${role_userToModify == 'ROLE_ADMIN'}">
+                                    <select class="combo" name="role" id="role" value="${requestScope.user.roleList.stream().findFirst().get().getName()}" >
+                                        <option  value="ROLE_ADMIN"> Administrateur</option>
+                                        <option value="ROLE_USER" > Utilisateur</option>
+                                    </select>
+                                </c:if>
+                                <c:if test="${role_userToModify == 'ROLE_USER'}">
+                                    <select class="combo" name="role" id="role" value="${requestScope.user.roleList.stream().findFirst().get().getName()}" >
+                                        <option value="ROLE_USER"> Utilisateur</option>
+                                        <option value="ROLE_ADMIN"> Administrateur</option>
+                                    </select>
+                                </c:if>
+                                <c:if test="${role_userToModify == 'ROLE_SUPER_ADMIN'}">
+                                </c:if>
+                            </c:if>
+                            <c:if test="${role_current_user == 'ROLE_SUPER_ADMIN'}" >
+                                <c:if test="${role_userToModify == 'ROLE_ADMIN'}">
+                                    <select class="combo" name="role" id="role" value="${requestScope.user.roleList.stream().findFirst().get().getName()}" >
+                                        <option  value="ROLE_ADMIN"> Administrateur</option>
+                                        <option value="ROLE_USER" > Utilisateur</option>
+                                        <option value="ROLE_SUPER_ADMIN">Super Administrateur</option>
+                                    </select>
+                                </c:if>
+                                <c:if test="${role_userToModify == 'ROLE_USER'}">
+                                    <select class="combo" name="role" id="role" value="${requestScope.user.roleList.stream().findFirst().get().getName()}" >
+                                        <option value="ROLE_USER"> Utilisateur</option>
+                                        <option value="ROLE_ADMIN"> Administrateur</option>
+                                        <option value="ROLE_SUPER_ADMIN">Super Administrateur</option>
+                                    </select>
+                                </c:if>
+                                <c:if test="${role_userToModify == 'ROLE_SUPER_ADMIN'}">
+                                    <select class="combo" name="role" id="role" value="${requestScope.user.roleList.stream().findFirst().get().getName()}" >
+                                        <option value="ROLE_SUPER_ADMIN">Super Administrateur</option>
+                                        <option value="ROLE_USER"> Utilisateur</option>
+                                        <option value="ROLE_ADMIN"> Administrateur</option>
+                                    </select>
+                                </c:if>
+                            </c:if>
+
                         </div>
                     </div>
                     <%--<div class="form-field">

@@ -74,7 +74,17 @@
                         </div>
                         <div class="form-value">
                             <%--TODO : change input type--%>
-                            <input type="text" name="role" id="role" value="ROLE_USER">
+<%--                            <input list="role" name="role" >--%>
+<%--                                <datalist id="role">--%>
+<%--                                    <option value="ROLE_USER"> User</option>--%>
+<%--                                    <option value="ROLE_ADMIN"> Admin</option>--%>
+<%--                                    <option value="ROLE_SUPER_ADMIN">Super Admin</option>--%>
+<%--                                </datalist>--%>
+                            <select class="combo" name="role" id="role">
+                                <option value="ROLE_USER"> Utilisateur</option>
+                                <option value="ROLE_ADMIN"> Administrateur</option>
+                                <option value="ROLE_SUPER_ADMIN">Super Administrateur</option>
+                            </select>
                         </div>
                     </div>
                     <%--<div class="form-field">

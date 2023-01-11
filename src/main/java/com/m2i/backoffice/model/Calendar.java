@@ -18,7 +18,7 @@ public class Calendar {
 
     @OneToMany(mappedBy = "calendar")
     private List<UserCalendarRights> calendarUserRightsList;
-
+    
     @OneToMany(mappedBy = "calendar")
     private List<Event> eventsList;
 
