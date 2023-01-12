@@ -55,7 +55,7 @@ public class UserService {
                     newUser = USER_DAO.createInTransaction(em, new User(pseudo, email, hashedPassword, firstname, lastname, null, List.of(role)));
                     Calendar newCalendar = CALENDAR_DAO.createInTransaction(em, new Calendar(true));
                     UserCalendarRightsId userCalendarRightsId = new UserCalendarRightsId(newUser.getId(), newCalendar.getId());
-                    USER_CAL_RIGHTS_DAO.createInTransaction(em, new UserCalendarRights(userCalendarRightsId, newUser, newCalendar, "owner"));
+                    USER_CAL_RIGHTS_DAO.createInTransaction(em, new UserCalendarRights(userCalendarRightsId, newUser, newCalendar, RightsEnum.OWNER.name()));
                     et.commit();
                 } catch(Exception e) {
                     e.printStackTrace();
