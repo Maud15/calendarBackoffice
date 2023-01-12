@@ -28,7 +28,13 @@ public class InitDb extends HttpServlet {
         try {
             new UserService().create("Toto", "toto@gmail.com", "mdp", "Thomas","Dupont",null, RoleEnum.ROLE_SUPER_ADMIN.name(), true);
             new UserService().create("Martine", "martine@gmail.com", "mdp", "Martine","Duchemin",null, RoleEnum.ROLE_ADMIN.name(), true);
-            new UserService().create("Eve", "eve@gmail.com", "mdp", "Eve","Dutrottoir",null, RoleEnum.ROLE_USER.name(), true);
+            new UserService().create("Eve", "eve_dutrottoir@gmail.com", "mdp", "Eve","Dutrottoir",null, RoleEnum.ROLE_USER.name(), true);
+            new UserService().create("RogerLeBg", "roger@gmail.com", "mdp", "Roger","",null, RoleEnum.ROLE_USER.name(), true);
+            new UserService().create("GégéDu69", "gégé@gmail.com", "mdp", "Gérard","",null, RoleEnum.ROLE_ADMIN.name(), true);
+            new UserService().create("laLeaDu33", "lea@gmail.com", "mdp", "Léa","Seypadou",null, RoleEnum.ROLE_USER.name(), true);
+            new UserService().create("rimas", "samir.duchene@gmail.com", "mdp", "Samir","Duchene",null, RoleEnum.ROLE_USER.name(), true);
+            new UserService().create("cloclo", "c.lamaison@gmail.com", "mdp", "Chloe","Lamaison",null, RoleEnum.ROLE_ADMIN.name(), true);
+            new UserService().create("Nicky", "nicole.kidman@gmail.com", "mdp", "Nicole","Kidman",null, RoleEnum.ROLE_USER.name(), true);
         } catch (UserCreationException e) {
             e.printStackTrace();
             System.out.println(e.getServerMessage());
