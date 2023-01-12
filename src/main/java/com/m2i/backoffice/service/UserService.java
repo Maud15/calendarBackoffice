@@ -24,17 +24,18 @@ public class UserService {
         return USER_DAO.getAll();
     }
 
-    public Optional<User> create(String pseudo, String email, String password, String firstname, String lastname, String cityName, String roleName) throws Exception {
+    public Optional<User> create(String pseudo, String email, String password, String firstname, String lastname, String cityName, String roleName,boolean bypassPasswordValidity) throws Exception {
         String errorType = "";
         String errorData = "";
         User newUser = null;
+//        pseudo = pseudo.toLowerCase();
         if(!isValidPseudo(pseudo)) {
             errorType = "invalidPseudo";
             errorData = pseudo;
         } else if(!isValidEmail(email)) {
             errorType = "invalidEmail";
             errorData = email;
-        } else if(!isValidPassword(password)) {
+        } else if(!isValidPassword(password, bypassPasswordValidity)) {
             errorType = "invalidPassword";
         } else {
             if(USER_DAO.getByPseudo(pseudo).isPresent()) {
@@ -123,10 +124,9 @@ public class UserService {
         throw new UnknownValueException("Role", roleName);
     }
 
-    //TODO : Deactivated for tests, reactivate for DEMO and change data in InitDb
-    private boolean isValidPassword(String password) {
-        return true;
-        /*int uppercaseCounter =0;
+    private boolean isValidPassword(String password, boolean byPass) {
+        if(byPass) return true;
+        int uppercaseCounter =0;
         int lowercaseCounter =0;
         int digitCounter =0;
 //        int specialCounter =0;
@@ -138,11 +138,11 @@ public class UserService {
                 lowercaseCounter++;
             else if(Character.isDigit(c))
                 digitCounter++;
-            *//*if(c>=33&&c<=46||c==64){
+            /*if(c>=33&&c<=46||c==64){
                 specialCounter++;
-            }*//*
+            }*/
         }
-        return password.length() > 7 && uppercaseCounter > 0 && lowercaseCounter > 0 && digitCounter > 0;*/
+        return password.length() > 7 && uppercaseCounter > 0 && lowercaseCounter > 0 && digitCounter > 0;
     }
     private boolean isValidPseudo(String pseudo) {
         int minLength = 2;

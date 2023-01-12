@@ -42,7 +42,8 @@ public class AddUserServlet extends HttpServlet {
                     req.getParameter("firstname"),
                     req.getParameter("lastname"),
                     req.getParameter("city"),
-                    req.getParameter("role")
+                    req.getParameter("role"),
+                    false
             );
             if(optNewUser.isPresent()) {
                 User newUser = optNewUser.get();
