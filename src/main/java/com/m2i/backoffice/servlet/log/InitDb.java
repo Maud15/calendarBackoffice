@@ -26,9 +26,9 @@ public class InitDb extends HttpServlet {
         roleDao.create(new Role(RoleEnum.ROLE_ADMIN));
         roleDao.create(new Role(RoleEnum.ROLE_SUPER_ADMIN));
         try {
-            new UserService().create("sa", "sa@gmail.com", "mdp", "admin","super",null, RoleEnum.ROLE_SUPER_ADMIN.name());
-            new UserService().create("toto", "toto@gmail.com", "mdp", "toto","admin",null, RoleEnum.ROLE_ADMIN.name());
-            new UserService().create("tutu", "tutu@gmail.com", "mdp", "tutu","user",null, RoleEnum.ROLE_USER.name());
+            new UserService().create("Toto", "toto@gmail.com", "mdp", "Thomas","Dupont",null, RoleEnum.ROLE_SUPER_ADMIN.name(), true);
+            new UserService().create("Martine", "martine@gmail.com", "mdp", "Martine","Duchemin",null, RoleEnum.ROLE_ADMIN.name(), true);
+            new UserService().create("Eve", "eve@gmail.com", "mdp", "Eve","Dutrottoir",null, RoleEnum.ROLE_USER.name(), true);
         } catch (UserCreationException e) {
             e.printStackTrace();
             System.out.println(e.getServerMessage());

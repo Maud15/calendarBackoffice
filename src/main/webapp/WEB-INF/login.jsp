@@ -13,7 +13,7 @@
         <p><c:out value="${requestScope.error}"/></p>
     </div>
 </c:if>
-    <form method="post" action="${pageContext.request.contextPath}/init">
+    <form method="post" action="${pageContext.request.contextPath}/init" style="display: none">
         <button type="submit">Init database</button>
     </form>
     <main class="login-container">

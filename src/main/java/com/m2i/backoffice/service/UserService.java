@@ -24,11 +24,18 @@ public class UserService {
         return USER_DAO.getAll();
     }
 
-    public Optional<User> create(String pseudo, String email, String password, String firstname, String lastname, String cityName, String roleName) throws Exception {
+    public Optional<User> create(String pseudo, String email, String password, String firstname, String lastname, String cityName, String roleName,boolean bypassPasswordValidity) throws Exception {
         String errorType = "";
         String errorData = "";
         User newUser = null;
-        if(!isValidPassword(password)) {
+//        pseudo = pseudo.toLowerCase();
+        if(!isValidPseudo(pseudo)) {
+            errorType = "invalidPseudo";
+            errorData = pseudo;
+        } else if(!isValidEmail(email)) {
+            errorType = "invalidEmail";
+            errorData = email;
+        } else if(!isValidPassword(password, bypassPasswordValidity)) {
             errorType = "invalidPassword";
         } else {
             if(USER_DAO.getByPseudo(pseudo).isPresent()) {
@@ -49,7 +56,7 @@ public class UserService {
                     newUser = USER_DAO.createInTransaction(em, new User(pseudo, email, hashedPassword, firstname, lastname, null, List.of(role)));
                     Calendar newCalendar = CALENDAR_DAO.createInTransaction(em, new Calendar(true));
                     UserCalendarRightsId userCalendarRightsId = new UserCalendarRightsId(newUser.getId(), newCalendar.getId());
-                    USER_CAL_RIGHTS_DAO.createInTransaction(em, new UserCalendarRights(userCalendarRightsId, newUser, newCalendar, "owner"));
+                    USER_CAL_RIGHTS_DAO.createInTransaction(em, new UserCalendarRights(userCalendarRightsId, newUser, newCalendar, RightsEnum.OWNER.name()));
                     et.commit();
                 } catch(Exception e) {
                     e.printStackTrace();
@@ -117,10 +124,9 @@ public class UserService {
         throw new UnknownValueException("Role", roleName);
     }
 
-    //TODO : Deactivated for tests, reactivate for DEMO and change data in InitDb
-    private boolean isValidPassword(String password) {
-        return true;
-        /*int uppercaseCounter =0;
+    private boolean isValidPassword(String password, boolean byPass) {
+        if(byPass) return true;
+        int uppercaseCounter =0;
         int lowercaseCounter =0;
         int digitCounter =0;
 //        int specialCounter =0;
@@ -132,11 +138,20 @@ public class UserService {
                 lowercaseCounter++;
             else if(Character.isDigit(c))
                 digitCounter++;
-            *//*if(c>=33&&c<=46||c==64){
+            /*if(c>=33&&c<=46||c==64){
                 specialCounter++;
-            }*//*
+            }*/
         }
-        return password.length() > 7 && uppercaseCounter > 0 && lowercaseCounter > 0 && digitCounter > 0;*/
+        return password.length() > 7 && uppercaseCounter > 0 && lowercaseCounter > 0 && digitCounter > 0;
+    }
+    private boolean isValidPseudo(String pseudo) {
+        int minLength = 2;
+        int maxLength = 20;
+        return !( pseudo.length() < minLength || pseudo.length() > maxLength );
+    }
+    private boolean isValidEmail(String email) {
+        int minLength = 6;
+        return ( email.length() >= minLength && email.indexOf('@') >=0 );
     }
 
     private boolean isSuperAdmin(String roleName) {
