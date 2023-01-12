@@ -3,6 +3,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../../resources/assets/favicon.ico">
 </head>
 <body>
     <jsp:include page="../header.jsp">

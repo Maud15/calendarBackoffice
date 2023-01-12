@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../../resources/assets/favicon.ico">
     <link href="../../resources/style/table.css" rel="stylesheet" type="text/css">
 </head>
 <body>

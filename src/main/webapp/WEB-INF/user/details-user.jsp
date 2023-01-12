@@ -6,6 +6,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../../resources/assets/favicon.ico">
     <script defer type="text/javascript" src="../../resources/script/userDetails.js"></script>
 </head>
 <body>
