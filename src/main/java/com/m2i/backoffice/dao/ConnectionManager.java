@@ -11,7 +11,7 @@ public class ConnectionManager {
 
     public static EntityManager getEntityManager() {
         if(CONNECTION_INSTANCE == null) {
-            CONNECTION_INSTANCE = Persistence.createEntityManagerFactory("planning_backoffice");
+            CONNECTION_INSTANCE = Persistence.createEntityManagerFactory("calendar_backoffice");
         }
         if(ENTITY_MANAGER == null || !ENTITY_MANAGER.isOpen()) {
             ENTITY_MANAGER = CONNECTION_INSTANCE.createEntityManager();

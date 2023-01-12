@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class City {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "city_id")
     private Long id;
 
@@ -15,9 +15,6 @@ public class City {
 
     @Column(nullable = false)
     private String pays;
-
-    /*@OneToMany(targetEntity = User.class, mappedBy = "city")
-    private List<User> usersList;*/
 
 
     public Long getId() {
@@ -32,12 +29,5 @@ public class City {
     }
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPays() {
-        return pays;
-    }
-    public void setPays(String pays) {
-        this.pays = pays;
     }
 }

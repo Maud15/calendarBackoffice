@@ -25,10 +25,9 @@ public class UserService {
     }
 
     public Optional<User> create(String pseudo, String email, String password, String firstname, String lastname, String cityName, String roleName,boolean bypassPasswordValidity) throws Exception {
-        String errorType = "";
+        String errorType;
         String errorData = "";
         User newUser = null;
-//        pseudo = pseudo.toLowerCase();
         if(!isValidPseudo(pseudo)) {
             errorType = "invalidPseudo";
             errorData = pseudo;
